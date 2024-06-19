@@ -1,19 +1,16 @@
 package com.example.pet_manager.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Entity
 @Data
-@Table(name = "Pet")
+@Table(name = "pet")
 public class Pet extends BaseEntity {
     @Column(name = "name")
     private String name;
@@ -36,4 +33,8 @@ public class Pet extends BaseEntity {
     @Column(name = "transfer_contract")
     private String transferContract;
 
+    @OneToMany(mappedBy = "pet",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE )
+    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Khoonhg sử dụng trong toString()
+    private List<HealthHistory> healthHistory;
 }

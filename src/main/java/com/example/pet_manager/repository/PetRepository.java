@@ -11,6 +11,4 @@ public interface PetRepository  extends JpaRepository<Pet, Integer> {
 
     List<Pet> findAllByOrderByCreateAtDesc();
 
-    Pet findByNameAndAgeAndSpeciesRegexOrderByCreateAtDesc(String name, int age, String species);
-    Pet findById(int id);
 }

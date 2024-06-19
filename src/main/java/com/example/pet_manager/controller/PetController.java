@@ -22,4 +22,5 @@ public class PetController {
     public ResponseEntity<?> addPet(@RequestBody PetRequest petRequest) {
         return ResponseEntity.ok(petService.addPet(petRequest));
     }
+
 }

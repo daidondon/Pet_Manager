@@ -1,8 +1,12 @@
 package com.example.pet_manager.service.Impl;
 
+import com.example.pet_manager.dto.HealthHistoryDto;
 import com.example.pet_manager.dto.PetDto;
+import com.example.pet_manager.entity.HealthHistory;
 import com.example.pet_manager.entity.Pet;
+import com.example.pet_manager.repository.HealthHistoryRepository;
 import com.example.pet_manager.repository.PetRepository;
+import com.example.pet_manager.request.HealthHistoryRequest;
 import com.example.pet_manager.request.PetRequest;
 import com.example.pet_manager.response.EntityCustomResponse;
 import com.example.pet_manager.service.PetService;
@@ -13,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +30,9 @@ public class PetServiceImpl implements PetService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private HealthHistoryRepository healthHistoryRepository;
 
     @Transactional
     @Override
@@ -48,15 +56,46 @@ public class PetServiceImpl implements PetService {
             //TODO : exception handler
         }
 
+        //process Health history
+        List<HealthHistory> healthHistoryList = new ArrayList<>();
+        for (HealthHistoryRequest data : petRequest.getHealthHistoryRequests()) {
+            HealthHistory healthHistory = new HealthHistory();
+            healthHistory.setDescription(data.getDescription());
+            healthHistory.setPet(petDb);
+            healthHistoryList.add(healthHistory);
+        }
+        List<HealthHistory> healthHistoryListDb = healthHistoryRepository.saveAll(healthHistoryList);
+        if (ObjectUtils.isEmpty(healthHistoryListDb)) {
+            //TODO : exception handler
+        }
+
+
         return new EntityCustomResponse(1, "Add Pet Success", 200, petDb);
     }
 
     @Override
     public EntityCustomResponse getAll() {
-
         List<Pet> listPet = petRepository.findAllByOrderByCreateAtDesc();
-        List<PetDto> listPetDto = listPet.stream().map(pet -> modelMapper.map(pet, PetDto.class))
-                .collect(Collectors.toList());
+        List<PetDto> listPetDto = listPet.stream().map(pet -> {
+            // Ánh xạ Pet thành PetDto
+            PetDto petDto = modelMapper.map(pet, PetDto.class);
+
+            // Tạo danh sách HealthHistoryDto từ HealthHistory của Pet
+            List<HealthHistoryDto> healthHistoryDtoList = pet.getHealthHistory().stream()
+                    .map(healthHistory -> {
+                        // Ánh xạ từng HealthHistory thành HealthHistoryDto
+                        HealthHistoryDto healthHistoryDto = modelMapper.map(healthHistory, HealthHistoryDto.class);
+                        // Đảm bảo trường Pet là null
+                        healthHistoryDto.setPet(null);
+                        return healthHistoryDto;
+                    })
+                    .collect(Collectors.toList());
+
+            // Đặt danh sách HealthHistoryDto vào PetDto
+            petDto.setHealthHistoryDtoList(healthHistoryDtoList);
+            return petDto;
+        }).collect(Collectors.toList());
+
 
         return new EntityCustomResponse(1, "List pet", 200, listPetDto);
     }

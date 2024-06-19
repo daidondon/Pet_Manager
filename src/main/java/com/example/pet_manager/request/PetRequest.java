@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -22,4 +24,6 @@ public class PetRequest {
     private String originCertificate;
 
     private String transferContract;
+
+    private List<HealthHistoryRequest> healthHistoryRequests;
 }

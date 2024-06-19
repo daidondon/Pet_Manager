@@ -36,6 +36,8 @@ public class MedicineServiceImpl implements MedicineService {
         medicine.setTrademark(medicineRequest.getTrademark());
         medicine.setDescrition(medicineRequest.getDescription());
 
+        // xem cách set ngày
+
         Medicine medicineDb = medicineRepository.save(medicine);
         if (ObjectUtils.isEmpty(medicineDb)) {
             //TODO : exception handler
@@ -47,11 +49,12 @@ public class MedicineServiceImpl implements MedicineService {
 
     @Override
     public EntityCustomResponse getAll() {
+//funtion này có thực hiện được không
+//        List<Medicine> listMedicine = medicineRepository.findAllByOrderByCreateAtDesc();
+//        List<MedicineDto> listPetDto = listMedicine.stream().map(medicine -> modelMapper.map(medicine, MedicineDto.class))
+//                .collect(Collectors.toList());
 
-        List<Medicine> listMedicine = medicineRepository.findAllByOrderByCreateAtDesc();
-        List<MedicineDto> listPetDto = listMedicine.stream().map(medicine -> modelMapper.map(medicine, MedicineDto.class))
-                .collect(Collectors.toList());
-
-        return new EntityCustomResponse(1, "List pet", 200, listPetDto);
+//        return new EntityCustomResponse(1, "List pet", 200, listPetDto);
+        return null;
     }
 }
