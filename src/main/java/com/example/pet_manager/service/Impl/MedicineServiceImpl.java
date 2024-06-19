@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +37,11 @@ public class MedicineServiceImpl implements MedicineService {
         medicine.setTrademark(medicineRequest.getTrademark());
         medicine.setDescrition(medicineRequest.getDescription());
 
-        // xem cách set ngày
+        // set ngày
+        medicine.setCreateAt(LocalDateTime.now());
+        medicine.setUpdateAt(LocalDateTime.now());
+        medicine.setCreateBy(1);//TODO set user login
+        medicine.setUpdateBy(1);//TODO set user login
 
         Medicine medicineDb = medicineRepository.save(medicine);
         if (ObjectUtils.isEmpty(medicineDb)) {
@@ -51,10 +56,10 @@ public class MedicineServiceImpl implements MedicineService {
     public EntityCustomResponse getAll() {
 //funtion này có thực hiện được không
 //        List<Medicine> listMedicine = medicineRepository.findAllByOrderByCreateAtDesc();
-//        List<MedicineDto> listPetDto = listMedicine.stream().map(medicine -> modelMapper.map(medicine, MedicineDto.class))
+//        List<MedicineDto> listMedicineDto = listMedicine.stream().map(medicine -> modelMapper.map(medicine, MedicineDto.class))
 //                .collect(Collectors.toList());
 
-//        return new EntityCustomResponse(1, "List pet", 200, listPetDto);
+//        return new EntityCustomResponse(1, "List pet", 200, listMedicineDto);
         return null;
     }
 }
