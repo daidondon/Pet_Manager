@@ -26,4 +26,6 @@ public class PetRequest {
     private String transferContract;
 
     private List<HealthHistoryRequest> healthHistoryRequests;
+
+    private List<VacinationHistoryRequest> vacinationHistoryRequests;
 }

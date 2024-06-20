@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class VacinationHistoryDto {
 
     private String description;
+    private String vaccinImage;
 
     private PetDto pet;
 }

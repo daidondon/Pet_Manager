@@ -28,4 +28,7 @@ public class PetDto {
     private String transferContract;
 
     private List<HealthHistoryDto> healthHistoryDtoList;
+
+    private List<VacinationHistoryDto> vacinationHistoryDtoList;
+
 }
