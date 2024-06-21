@@ -32,7 +32,7 @@ public class Medicine extends BaseEntity{
     @Column(name = "descrition")
     private String descrition;
 
-    @OneToMany(mappedBy = "medicines",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE )
+    @OneToMany(mappedBy = "medicine",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE )
     @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
     @ToString.Exclude // Khong sử dụng trong toString()
     private List<MedicineImage> medicineImage;
