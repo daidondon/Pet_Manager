@@ -19,7 +19,7 @@ public class MedicineController {
         return ResponseEntity.ok(medicineService.getAll());
     }
 
-    @PutMapping("/add")
+    @PostMapping("/add")
     public ResponseEntity<?> addMedicine(@RequestBody MedicineRequest medicineRequest) {
         return ResponseEntity.ok(medicineService.addMedicine(medicineRequest));
     }

@@ -1,9 +1,12 @@
 package com.example.pet_manager.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,5 +26,8 @@ public class MedicineDto {
     private String trademark;
 
     private String descrition;
+
+    @JsonProperty("medicine_image")
+    private List<MedicineImageDto> medicineImageDtoList;
 
 }

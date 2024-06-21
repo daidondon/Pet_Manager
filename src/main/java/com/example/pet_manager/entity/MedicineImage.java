@@ -11,17 +11,18 @@ import lombok.ToString;
 @ToString
 @Entity
 @Data
-@Table(name = "vacination_history")
-public class VacinationHistory extends BaseEntity{
+@Table(name = "medicine_image")
+public class MedicineImage {
 
-    @Column(name = "description")
-    private String description;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    @Column(name = "vaccin_image")
-    private String vaccinImage;
+    @Column(name = "image")
+    private String image;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pet_id")
-    private Pet pet;
+    @JoinColumn(name = "medicine_id")
+    private Medicine medicine;
 
 }

@@ -22,7 +22,6 @@ import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -114,6 +113,7 @@ public class PetServiceImpl implements PetService {
             // Đặt danh sách HealthHistoryDto vào PetDto
             petDto.setHealthHistoryDtoList(healthHistoryDtoList);
 
+
             // Tạo danh sách VacinationHistoryDto từ VacinationHistory của Pet
             List<VacinationHistoryDto> vacinationHistoryDtoList = pet.getVacinationHistory().stream()
                     .map(vacinationHistory -> {
@@ -128,7 +128,6 @@ public class PetServiceImpl implements PetService {
 
             return petDto;
         }).collect(Collectors.toList());
-
 
         return new EntityCustomResponse(1, "List pet", 200, listPetDto);
     }

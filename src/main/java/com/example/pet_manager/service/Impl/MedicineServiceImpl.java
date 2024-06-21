@@ -1,6 +1,7 @@
 package com.example.pet_manager.service.Impl;
 
 import com.example.pet_manager.dto.MedicineDto;
+import com.example.pet_manager.dto.MedicineImageDto;
 import com.example.pet_manager.entity.Medicine;
 import com.example.pet_manager.repository.MedicineRepository;
 import com.example.pet_manager.request.MedicineRequest;
@@ -54,12 +55,30 @@ public class MedicineServiceImpl implements MedicineService {
 
     @Override
     public EntityCustomResponse getAll() {
-//funtion này có thực hiện được không
-//        List<Medicine> listMedicine = medicineRepository.findAllByOrderByCreateAtDesc();
-//        List<MedicineDto> listMedicineDto = listMedicine.stream().map(medicine -> modelMapper.map(medicine, MedicineDto.class))
-//                .collect(Collectors.toList());
 
-//        return new EntityCustomResponse(1, "List pet", 200, listMedicineDto);
-        return null;
+       List<Medicine> listMedicine = medicineRepository.findAllByOrderByCreateAtDesc();
+        List<MedicineDto> listMedicineDto = listMedicine.stream().map(medicine ->{
+
+            MedicineDto medicineDto = modelMapper.map(medicine, MedicineDto.class);
+
+
+            List<MedicineImageDto> medicineImageDtoList = medicine.getMedicineImage().stream()
+                    .map(medicineImage -> {
+
+                        MedicineImageDto medicineImageDto = modelMapper.map(medicineImage, MedicineImageDto.class);
+
+                        medicineImageDto.setMedicine(null);
+                        return medicineImageDto;
+                    })
+                    .collect(Collectors.toList());
+
+
+            medicineDto.setMedicineImageDtoList(medicineImageDtoList);
+
+            return medicineDto;
+    }).collect(Collectors.toList());
+
+       return new EntityCustomResponse(1, "List medicine", 200, listMedicineDto);
+
     }
 }

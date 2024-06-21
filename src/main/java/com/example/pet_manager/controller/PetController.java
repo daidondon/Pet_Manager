@@ -18,7 +18,7 @@ public class PetController {
         return ResponseEntity.ok(petService.getAll());
     }
 
-    @PutMapping("/add")
+    @PostMapping("/add")
     public ResponseEntity<?> addPet(@RequestBody PetRequest petRequest) {
         return ResponseEntity.ok(petService.addPet(petRequest));
     }
