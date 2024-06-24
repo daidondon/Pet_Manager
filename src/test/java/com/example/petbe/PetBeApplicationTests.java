@@ -1,10 +1,10 @@
-package com.example.pet_manager;
+package com.example.petbe;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PetManagerApplicationTests {
+class PetBeApplicationTests {
 
     @Test
     void contextLoads() {
