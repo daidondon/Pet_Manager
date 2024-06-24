@@ -14,6 +14,20 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Override
+    public User loginUser(String gmail, String password) {
+        Optional<User> existingUser = userRepository.findByGmail(gmail);
+        if (existingUser.isPresent()) {
+            User user = existingUser.get();
+            if (!user.getPassword().equals(password)) {
+               throw new BadCredentialsException("Wrong password");
+            }
+            return user;
+            }
+        else {
+            throw new IllegalArgumentException("User not found");
+        }
 
-}
+        }
+    }
 
