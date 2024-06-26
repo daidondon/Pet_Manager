@@ -81,6 +81,8 @@ public class PetServiceImpl implements PetService {
             VacinationHistory vacinationHistory = new VacinationHistory();
             vacinationHistory.setDescription(data.getDescription());
             vacinationHistory.setVaccinImage(data.getVaccinImage());
+            vacinationHistory.setName(data.getName());
+            vacinationHistory.setInjectionDate(data.getInjectionDate());
             vacinationHistory.setPet(petDb);
             vacinationHistoryList.add(vacinationHistory);
         }

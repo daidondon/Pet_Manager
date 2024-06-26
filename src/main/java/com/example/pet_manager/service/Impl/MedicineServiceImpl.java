@@ -3,7 +3,10 @@ package com.example.pet_manager.service.Impl;
 import com.example.pet_manager.dto.MedicineDto;
 import com.example.pet_manager.dto.MedicineImageDto;
 import com.example.pet_manager.entity.Medicine;
+import com.example.pet_manager.entity.MedicineImage;
+import com.example.pet_manager.repository.MedicineImageRepository;
 import com.example.pet_manager.repository.MedicineRepository;
+import com.example.pet_manager.request.MedicineImageRequest;
 import com.example.pet_manager.request.MedicineRequest;
 import com.example.pet_manager.response.EntityCustomResponse;
 import com.example.pet_manager.service.MedicineService;
@@ -14,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +29,10 @@ public class MedicineServiceImpl implements MedicineService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private MedicineImageRepository medicineImageRepository;
+
 
     @Transactional
     @Override
@@ -46,6 +54,18 @@ public class MedicineServiceImpl implements MedicineService {
 
         Medicine medicineDb = medicineRepository.save(medicine);
         if (ObjectUtils.isEmpty(medicineDb)) {
+            //TODO : exception handler
+        }
+
+        List<MedicineImage> medicineImageList = new ArrayList<>();
+        for (MedicineImageRequest data : medicineRequest.getMedicineImageRequests()) {
+            MedicineImage medicineImage = new MedicineImage();
+            medicineImage.setImage(data.getImage());
+            medicineImage.setMedicine(medicineDb);
+            medicineImageList.add(medicineImage);
+        }
+        List<MedicineImage> medicineImageListDb = medicineImageRepository.saveAll(medicineImageList);
+        if (ObjectUtils.isEmpty(medicineImageListDb)) {
             //TODO : exception handler
         }
 

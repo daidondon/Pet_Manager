@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,6 +17,11 @@ public class VacinationHistoryDto {
 
     @JsonProperty("vaccin_image")
     private String vaccinImage;
+
+    private String name;
+
+    @JsonProperty("injection_date")
+    private Date injectionDate;
 
     private PetDto pet;
 }
