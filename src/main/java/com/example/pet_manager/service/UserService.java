@@ -1,7 +1,7 @@
-package com.example.petbe.services;
+package com.example.pet_manager.service;
 
 
-import com.example.petbe.entity.User;
+import com.example.pet_manager.entity.User;
 
 public interface UserService {
     User loginUser(String gmail, String password);

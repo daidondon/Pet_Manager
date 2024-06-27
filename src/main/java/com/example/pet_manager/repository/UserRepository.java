@@ -1,6 +1,6 @@
-package com.example.petbe.repositories;
+package com.example.pet_manager.repository;
 
-import com.example.petbe.entity.User;
+import com.example.pet_manager.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

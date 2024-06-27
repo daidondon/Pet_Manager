@@ -1,4 +1,4 @@
-package com.example.petbe.config;
+package com.example.pet_manager.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

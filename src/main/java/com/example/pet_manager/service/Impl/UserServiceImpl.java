@@ -1,7 +1,8 @@
-package com.example.petbe.services;
+package com.example.pet_manager.service.Impl;
 
-import com.example.petbe.entity.User;
-import com.example.petbe.repositories.UserRepository;
+import com.example.pet_manager.service.UserService;
+import com.example.pet_manager.entity.User;
+import com.example.pet_manager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;

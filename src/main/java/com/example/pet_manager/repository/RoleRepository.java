@@ -1,6 +1,6 @@
-package com.example.petbe.repositories;
+package com.example.pet_manager.repository;
 
-import com.example.petbe.entity.Role;
+import com.example.pet_manager.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

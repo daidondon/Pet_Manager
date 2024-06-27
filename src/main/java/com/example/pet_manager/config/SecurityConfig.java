@@ -1,4 +1,4 @@
-package com.example.petbe.config;
+package com.example.pet_manager.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
