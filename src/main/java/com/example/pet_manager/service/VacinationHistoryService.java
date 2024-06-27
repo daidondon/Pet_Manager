@@ -1,6 +1,5 @@
 package com.example.pet_manager.service;
 
-import com.example.pet_manager.request.PetRequest;
 import com.example.pet_manager.request.VacinationHistoryRequest;
 import com.example.pet_manager.response.EntityCustomResponse;
 
