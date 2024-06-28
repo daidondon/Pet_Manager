@@ -12,6 +12,7 @@ import com.example.pet_manager.service.CustomerService;
 import com.example.pet_manager.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,22 +41,28 @@ public class AuthController {
 
 
     @PostMapping("register")
-    public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
-        if (userService.isExistEmail(registerDto.getGmail())) {
-            return new ResponseEntity<>("Gmail is taken!", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> register(@RequestBody @Valid RegisterDto registerDto) {
+        try{
+            if (userService.isExistEmail(registerDto.getGmail())) {
+                return new ResponseEntity<>("Gmail is taken!", HttpStatus.BAD_REQUEST);
+            }
+
+            User user = new User();
+            user.setGmail(registerDto.getGmail());
+            user.setPassword(registerDto.getPassword());
+            user.setPhone_number(registerDto.getPhone_number());
+            user.setFull_name(registerDto.getFull_name());
+            user.setAddress(registerDto.getAddress());
+
+            int idUser = userService.addUser(user);
+            customerService.addCustomer(idUser);
+
+            return new ResponseEntity<>("User registered success!", HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity<>("Error from server", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        User user = new User();
-        user.setGmail(registerDto.getGmail());
-        user.setPassword(registerDto.getPassword());
-        user.setPhone_number(registerDto.getPhone_number());
-        user.setFull_name(registerDto.getFull_name());
-        user.setAddress(registerDto.getAddress());
 
-        int idUser = userService.addUser(user);
-        customerService.addCustomer(idUser);
-
-        return new ResponseEntity<>("User registered success!", HttpStatus.OK);
     }
     @PostMapping("login")
     public ResponseEntity<?> loginUser(@RequestBody User userEntity, HttpSession session, HttpServletResponse response) {
