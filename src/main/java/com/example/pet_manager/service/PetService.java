@@ -9,4 +9,6 @@ public interface PetService {
 
     EntityCustomResponse getAll();
 
+    EntityCustomResponse updatePet(PetRequest petRequest);
+
 }
