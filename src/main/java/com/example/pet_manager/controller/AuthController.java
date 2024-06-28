@@ -53,15 +53,7 @@ public class AuthController {
                 return new ResponseEntity<>("Gmail is taken!", HttpStatus.BAD_REQUEST);
             }
 
-            User user = new User();
-            user.setGmail(registerDto.getGmail());
-            user.setPassword(registerDto.getPassword());
-            user.setPhone_number(registerDto.getPhone_number());
-            user.setFull_name(registerDto.getFull_name());
-            user.setAddress(registerDto.getAddress());
 
-            int idUser = userService.addUser(user);
-            customerService.addCustomer(idUser);
 
             String code = emailService.generateVerifyCode();
             EmailDetails emailDetails = new EmailDetails();
@@ -69,6 +61,21 @@ public class AuthController {
             emailDetails.setMsgBody(code);
             emailDetails.setRecipient(registerDto.getGmail());
             boolean check = emailService.sendSimpleMail(emailDetails);
+            if(!check){
+
+                return new ResponseEntity<>("Sending code for verify to email fail!!", HttpStatus.OK);
+            }
+            User user = new User();
+            user.setGmail(registerDto.getGmail());
+            user.setPassword(registerDto.getPassword());
+            user.setPhone_number(registerDto.getPhone_number());
+            user.setFull_name(registerDto.getFull_name());
+            user.setAddress(registerDto.getAddress());
+            user.setVerify(code);
+            user.setStatus(0);
+            int idUser = userService.addUser(user);
+            customerService.addCustomer(idUser);
+
 
 
             return new ResponseEntity<>("Please check your phone or mail to verify", HttpStatus.OK);

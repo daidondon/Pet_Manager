@@ -43,6 +43,12 @@ public class User {
     @Size(max = 10)
     private String phone_number;
 
+    @NotBlank
+    @Size(max = 10)
+    private String verify;
+
+    private int status;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Customer> customers;
 }

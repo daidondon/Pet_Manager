@@ -9,9 +9,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer,Long> {
+public interface CustomerRepository extends JpaRepository<Customer,Integer> {
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO customer (user_id, role_id) VALUES (:userId, 1)", nativeQuery = true)
     void addCustomer(@Param("userId") int userId);
+
+
 }
