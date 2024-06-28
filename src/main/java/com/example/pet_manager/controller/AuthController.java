@@ -8,11 +8,14 @@ import com.example.pet_manager.entity.Customer;
 import com.example.pet_manager.entity.Role;
 import com.example.pet_manager.entity.User;
 import com.example.pet_manager.repository.UserRepository;
+import com.example.pet_manager.request.EmailDetails;
 import com.example.pet_manager.service.CustomerService;
+import com.example.pet_manager.service.EmailService;
 import com.example.pet_manager.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +34,9 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private EmailService emailService;
     @Autowired
     private CustomerService customerService;
 
@@ -57,7 +63,15 @@ public class AuthController {
             int idUser = userService.addUser(user);
             customerService.addCustomer(idUser);
 
-            return new ResponseEntity<>("User registered success!", HttpStatus.OK);
+            String code = emailService.generateVerifyCode();
+            EmailDetails emailDetails = new EmailDetails();
+            emailDetails.setSubject("Verify Code");
+            emailDetails.setMsgBody(code);
+            emailDetails.setRecipient(registerDto.getGmail());
+            boolean check = emailService.sendSimpleMail(emailDetails);
+
+
+            return new ResponseEntity<>("Please check your phone or mail to verify", HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>("Error from server", HttpStatus.INTERNAL_SERVER_ERROR);
         }
