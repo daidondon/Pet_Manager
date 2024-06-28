@@ -4,8 +4,11 @@ import com.example.pet_manager.config.JWTConfig;
 import com.example.pet_manager.dto.LoginRequestDTO;
 import com.example.pet_manager.dto.LoginResponseDTO;
 import com.example.pet_manager.dto.RegisterDto;
+import com.example.pet_manager.entity.Customer;
+import com.example.pet_manager.entity.Role;
 import com.example.pet_manager.entity.User;
 import com.example.pet_manager.repository.UserRepository;
+import com.example.pet_manager.service.CustomerService;
 import com.example.pet_manager.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -13,10 +16,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
 @RequestMapping("api/auth")
@@ -30,6 +30,8 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private CustomerService customerService;
 
     public AuthController( UserService userService) {
 //
@@ -50,7 +52,8 @@ public class AuthController {
         user.setFull_name(registerDto.getFull_name());
         user.setAddress(registerDto.getAddress());
 
-        userService.addUser(user);
+        int idUser = userService.addUser(user);
+        customerService.addCustomer(idUser);
 
         return new ResponseEntity<>("User registered success!", HttpStatus.OK);
     }
@@ -62,9 +65,9 @@ public class AuthController {
 
             User user = userService.loginUser(loginRequestDTO.getGmail(), loginRequestDTO.getPassword());
 
-            String token = JWTConfig.generateToken(response,user.getFull_name());
+            String token = JWTConfig.generateToken(response,user.getGmail());
             LoginResponseDTO responseDTO = new LoginResponseDTO(token,user.getFull_name());
-            session.setAttribute("name", user.getFull_name());
+            session.setAttribute("name", user.getGmail());
             session.setAttribute("token", token);
             return ResponseEntity.ok(responseDTO);
         } catch (IllegalArgumentException e) {
@@ -72,5 +75,10 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
     }
+    @GetMapping("show")
+    public String hello() {
+        return "Hello World";
+    }
+
 
 }

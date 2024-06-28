@@ -31,12 +31,14 @@ public class UserServiceImpl implements UserService {
         }
 
     @Override
-    public void addUser(User user) {
+    public int addUser(User user) {
         try{
-            userRepository.save(user);
+            User newUser = userRepository.save(user);
+            return newUser.getId();
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
+        return 0;
     }
 
     @Override

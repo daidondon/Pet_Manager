@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "[User]",
         uniqueConstraints = {
@@ -40,4 +42,7 @@ public class User {
     @NotBlank
     @Size(max = 10)
     private String phone_number;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Customer> customers;
 }
