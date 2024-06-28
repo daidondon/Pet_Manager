@@ -29,4 +29,9 @@ public class PetController {
         return ResponseEntity.ok(petService.updatePet(petRequest));
     }
 
+    @PostMapping("delete")
+    public ResponseEntity<?> deletePet(@RequestParam Integer petId) {
+        return ResponseEntity.ok(petService.deletePet(petId));
+    }
+
 }

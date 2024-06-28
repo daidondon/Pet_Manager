@@ -11,4 +11,6 @@ public interface PetService {
 
     EntityCustomResponse updatePet(PetRequest petRequest);
 
+    EntityCustomResponse deletePet(Integer petId);
+
 }

@@ -146,7 +146,7 @@ public class PetServiceImpl implements PetService {
         // 404 không thấy địa chỉ
         // 500 lỗi hệ thống
         // các lỗi có mã lỗi từ > 600 , thì sẽ là dev tự custom
-        if(ObjectUtils.isEmpty(petRequest.getId())){
+        if (ObjectUtils.isEmpty(petRequest.getId())) {
             throw new APIException(HttpStatus.INTERNAL_SERVER_ERROR, "Id không được để trống");
         }
 
@@ -168,9 +168,24 @@ public class PetServiceImpl implements PetService {
             throw new APIException(HttpStatus.INTERNAL_SERVER_ERROR, "update pet thất bại");
         }
 
+        //set cái này để khi respone trả về ko có , k bị vòng lặp vô cực
         petDb.setHealthHistory(null);
         pet.setVacinationHistory(null);
 
-        return new EntityCustomResponse(1, "Add Pet Success", 200, petDb);
+        return new EntityCustomResponse(1, "Update Pet Success", 200, petDb);
+    }
+
+    @Override
+    @Transactional
+    public EntityCustomResponse deletePet(Integer petId) {
+
+        if (ObjectUtils.isEmpty(petId)) {
+            throw new APIException(HttpStatus.INTERNAL_SERVER_ERROR, "Id không được để trống");
+        }
+        // tìm rồi xóa
+        Pet pet = petRepository.findById(petId).orElseThrow(() -> new APIException(HttpStatus.INTERNAL_SERVER_ERROR, "không tìm thấy pet"));
+        petRepository.delete(pet);
+
+        return new EntityCustomResponse(1, "Delete Pet Success", 200, null);
     }
 }
