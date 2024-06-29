@@ -24,12 +24,12 @@ public class PetController {
         return ResponseEntity.ok(petService.addPet(petRequest));
     }
 
-    @PostMapping("update")
+    @PutMapping("update")
     public ResponseEntity<?> updatePet(@Valid @RequestBody PetRequest petRequest) {
         return ResponseEntity.ok(petService.updatePet(petRequest));
     }
 
-    @PostMapping("delete")
+    @PutMapping("delete")
     public ResponseEntity<?> deletePet(@RequestParam Integer petId) {
         return ResponseEntity.ok(petService.deletePet(petId));
     }
