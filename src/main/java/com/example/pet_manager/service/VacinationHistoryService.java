@@ -9,4 +9,5 @@ public interface VacinationHistoryService {
 
     EntityCustomResponse getAll(Integer petId);
 
+    EntityCustomResponse deleteVacinationHistory(Integer vacinationHistoryId);
 }
