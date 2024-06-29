@@ -1,13 +1,14 @@
 package com.example.pet_manager.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "[User]",
@@ -30,6 +31,7 @@ public class User {
     @Size(max = 50)
     private String full_name;
 
+
     @NotBlank
     @Size(max = 15)
     private String password;
@@ -48,7 +50,7 @@ public class User {
     private String verify;
 
     private int status;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Customer> customers;
+    private List<Customer> customers;
 }
+

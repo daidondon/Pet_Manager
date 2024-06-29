@@ -1,9 +1,10 @@
 package com.example.pet_manager.entity;
 
-import jakarta.persistence.*;
+
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import javax.persistence.*;
+;import java.time.LocalDateTime;
 
 @Data
 @MappedSuperclass

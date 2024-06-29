@@ -1,7 +1,9 @@
 package com.example.pet_manager.dto;
 
-import jakarta.validation.constraints.*;
+
 import lombok.Data;
+
+import javax.validation.constraints.*;
 
 @Data
 public class RegisterDto {
