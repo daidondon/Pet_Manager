@@ -12,6 +12,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @Data
 public class VacinationHistoryDto {
+    private int id;
 
     private String description;
 
