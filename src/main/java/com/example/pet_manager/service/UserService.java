@@ -7,10 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserService extends UserDetailsService {
     User loginUser(String gmail, String password);
     int addUser(User user);
     Boolean isExistEmail(String email);
-    List<String> findRolesByUsername(String username);
+    Set<String> findRolesByUsername(String username);
 }

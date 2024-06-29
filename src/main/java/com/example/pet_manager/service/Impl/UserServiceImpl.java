@@ -17,6 +17,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -59,16 +60,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Tìm người dùng trong cơ sở dữ liệu bằng email (username)
         User userEntity = userRepository.findByGmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-        // Lấy danh sách các vai trò của người dùng từ cơ sở dữ liệu
-        List<String> roles = findRolesByUsername(username); // Sử dụng phương thức đã định nghĩa để lấy danh sách vai trò
+        Set<String> roles = findRolesByUsername(username);
         List<GrantedAuthority> authorities = roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
-
         return new org.springframework.security.core.userdetails.User(
                 userEntity.getGmail(),
                 userEntity.getPassword(),
@@ -77,12 +75,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<String> findRolesByUsername(String username) {
+    public Set<String> findRolesByUsername(String username) {
         Optional<User> optionalUser = userRepository.findByGmail(username);
         User user = optionalUser.orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-        // Sử dụng một phương thức phù hợp của userRepository để lấy danh sách các chuỗi roles
-        List<String> roles = userRepository.findRolesByUsername(username);
+        Set<String> roles = userRepository.findRolesByUsername(username);
 
         return roles;
     }

@@ -33,11 +33,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/auth/login").permitAll() // Cho phép mọi người truy cập /api/auth/login
-                .antMatchers("/api/auth/show").hasAuthority("CUSTOMER") // Yêu cầu có quyền "CUSTOMER" để truy cập /api/auth/show
-                .anyRequest().authenticated() // Các yêu cầu còn lại cần xác thực
+                .antMatchers("/api/auth/login").permitAll()
+                .antMatchers("/api/auth/show").hasAuthority("ADMIN")
+                .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // Thêm JwtAuthenticationFilter trước UsernamePasswordAuthenticationFilter
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable();
     }
 }

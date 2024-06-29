@@ -38,7 +38,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (StringUtils.hasText(jwt) && JWTConfig.validateToken(jwt)) {
                 String username = JWTConfig.getUsernameFromToken(jwt);
                 UserDetails userDetails = userService.loadUserByUsername(username);
-                // Tạo đối tượng Authentication
                 Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, userDetails.getAuthorities());
 
                 // Lưu thông tin xác thực vào SecurityContextHolder

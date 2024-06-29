@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.print.Doc;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Set;
@@ -52,5 +53,12 @@ public class User {
     private int status;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Customer> customers;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Host> hosts;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Doctor> doctors;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Admin> admins;
+
 }
 

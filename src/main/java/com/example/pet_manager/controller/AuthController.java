@@ -17,12 +17,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -30,6 +24,7 @@ import org.springframework.http.HttpStatus;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @RequestMapping("api/auth")
 @RestController
@@ -91,15 +86,15 @@ public class AuthController {
 
 
     }
+
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequestDTO loginRequestDTO, HttpServletResponse response) {
 
-            User user = userService.loginUser(loginRequestDTO.getGmail(), loginRequestDTO.getPassword());
-
-            String token = JWTConfig.generateToken(response, user.getGmail());
-            List<String> role = userService.findRolesByUsername(user.getGmail());
-            return ResponseEntity.ok(new LoginResponseDTO(token, user.getFull_name(), role));
-        }
+        User user = userService.loginUser(loginRequestDTO.getGmail(), loginRequestDTO.getPassword());
+        String token = JWTConfig.generateToken(response, user.getGmail());
+        Set<String> role = userService.findRolesByUsername(user.getGmail());
+        return ResponseEntity.ok(new LoginResponseDTO(token, user.getFull_name(), role));
+    }
 
     @GetMapping("show")
     public String hello() {

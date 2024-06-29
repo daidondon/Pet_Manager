@@ -19,4 +19,12 @@ public class Role {
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private Set<Customer> customers;
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    private Set<Admin>  admins;
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    private Set<Doctor>  doctors;
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    private Set<Host>  hosts;
+
+
 }
