@@ -98,8 +98,8 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public EntityCustomResponse getAll() {
-        List<Pet> listPet = petRepository.findAllByOrderByCreateAtDesc();
+    public EntityCustomResponse getAll(Integer customerId) {
+        List<Pet> listPet = petRepository.findAllByCustomerId(customerId);
         List<PetDto> listPetDto = listPet.stream().map(pet -> {
             // Ánh xạ Pet thành PetDto
             PetDto petDto = modelMapper.map(pet, PetDto.class);

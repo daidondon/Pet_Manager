@@ -15,7 +15,7 @@ public class PetController {
     private PetService petService;
 
     @GetMapping("/list")
-    public ResponseEntity<?> listPet() {
+    public ResponseEntity<?> listPet(@RequestParam Integer customerId) {
         return ResponseEntity.ok(petService.getAll());
     }
 
