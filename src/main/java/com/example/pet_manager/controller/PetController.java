@@ -16,7 +16,7 @@ public class PetController {
 
     @GetMapping("/list")
     public ResponseEntity<?> listPet(@RequestParam Integer customerId) {
-        return ResponseEntity.ok(petService.getAll());
+        return ResponseEntity.ok(petService.getAll(customerId));
     }
 
     @PostMapping("/add")

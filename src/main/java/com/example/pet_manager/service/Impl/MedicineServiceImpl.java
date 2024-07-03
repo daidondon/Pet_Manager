@@ -47,6 +47,7 @@ public class MedicineServiceImpl implements MedicineService {
         medicine.setType(medicineRequest.getType());
         medicine.setTrademark(medicineRequest.getTrademark());
         medicine.setDescrition(medicineRequest.getDescription());
+        medicine.setClinicId(medicineRequest.getClinicId());
 
         // set ngày
         medicine.setCreateAt(LocalDateTime.now());
@@ -76,9 +77,9 @@ public class MedicineServiceImpl implements MedicineService {
     }
 
     @Override
-    public EntityCustomResponse getAll() {
+    public EntityCustomResponse getAll(Integer clinicId) {
 
-       List<Medicine> listMedicine = medicineRepository.findAllByOrderByCreateAtDesc();
+       List<Medicine> listMedicine = medicineRepository.findByClinicIdOrderByCreateAtDesc(clinicId);
         List<MedicineDto> listMedicineDto = listMedicine.stream().map(medicine ->{
 
             MedicineDto medicineDto = modelMapper.map(medicine, MedicineDto.class);

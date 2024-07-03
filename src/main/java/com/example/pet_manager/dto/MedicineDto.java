@@ -27,6 +27,8 @@ public class MedicineDto {
 
     private String descrition;
 
+    private Integer clinicId;
+
     @JsonProperty("medicine_image")
     private List<MedicineImageDto> medicineImageDtoList;
 

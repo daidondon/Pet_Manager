@@ -8,7 +8,7 @@ public interface MedicineService {
 
     EntityCustomResponse addMedicine(MedicineRequest medicineRequest);
 
-    EntityCustomResponse getAll();
+    EntityCustomResponse getAll(Integer clinicId);
 
     EntityCustomResponse updateMedicine(MedicineRequest medicineRequest);
 

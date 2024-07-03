@@ -17,8 +17,9 @@ public class MedicineController {
     private MedicineService medicineService;
 
     @GetMapping("/list")
-    public ResponseEntity<?> listMedicine() {
-        return ResponseEntity.ok(medicineService.getAll());
+    public ResponseEntity<?> listMedicine(@RequestParam Integer clinicId) {
+
+        return ResponseEntity.ok(medicineService.getAll(clinicId));
     }
 
     @PostMapping("/add")

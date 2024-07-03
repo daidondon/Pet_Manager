@@ -11,4 +11,6 @@ public interface MedicineRepository extends JpaRepository<Medicine, Integer> {
 
     List<Medicine> findAllByOrderByCreateAtDesc();
 
+    List<Medicine> findByClinicIdOrderByCreateAtDesc(Integer clinicId);
+
 }
