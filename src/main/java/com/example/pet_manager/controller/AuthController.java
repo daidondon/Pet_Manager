@@ -11,6 +11,7 @@ import com.example.pet_manager.entity.User;
 import com.example.pet_manager.request.EmailDetails;
 import com.example.pet_manager.service.CustomerService;
 import com.example.pet_manager.service.EmailService;
+import com.example.pet_manager.service.OTPService;
 import com.example.pet_manager.service.UserService;
 
 import org.modelmapper.ModelMapper;
@@ -42,6 +43,8 @@ public class AuthController {
     private EmailService emailService;
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private OTPService otpService;
 
     public AuthController(UserService userService) {
 //
@@ -58,14 +61,22 @@ public class AuthController {
 
 
             String code = emailService.generateVerifyCode();
-            EmailDetails emailDetails = new EmailDetails();
-            emailDetails.setSubject("Verify Code");
-            emailDetails.setMsgBody(code);
-            emailDetails.setRecipient(registerDto.getGmail());
-            boolean check = emailService.sendSimpleMail(emailDetails);
-            if (!check) {
+            if(registerDto.getTypeVerify() == 0) {
+                EmailDetails emailDetails = new EmailDetails();
+                emailDetails.setSubject("Verify Code");
+                emailDetails.setMsgBody(code);
+                emailDetails.setRecipient(registerDto.getGmail());
+                boolean check = emailService.sendSimpleMail(emailDetails);
+                if (!check) {
 
-                return new ResponseEntity<>("Sending code for verify to email fail!!", HttpStatus.OK);
+                    return new ResponseEntity<>("Sending code for verify to email fail!!", HttpStatus.OK);
+                }
+            }else{
+                boolean check = otpService.sendOtp(registerDto.getPhone_number(),code);
+                if (!check) {
+
+                    return new ResponseEntity<>("Sending code for verify to phone fail!!", HttpStatus.OK);
+                }
             }
             User user = new User();
             user.setGmail(registerDto.getGmail());

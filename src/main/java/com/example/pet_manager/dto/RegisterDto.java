@@ -28,4 +28,8 @@ public class RegisterDto {
     @NotEmpty(message = "Phone number must be filled")
     @Pattern(regexp = "^\\d{10}$", message = "Phone number must be exactly 10 digits")
     private String phone_number;
+
+    //0 is verify by email
+    //1 is verify by phone
+    private int typeVerify;
 }
