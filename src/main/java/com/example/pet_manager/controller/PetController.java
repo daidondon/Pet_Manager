@@ -15,8 +15,9 @@ public class PetController {
     private PetService petService;
 
     @GetMapping("/list")
-    public ResponseEntity<?> listPet(@RequestParam Integer customerId) {
-        return ResponseEntity.ok(petService.getAll(customerId));
+    public ResponseEntity<?> listPet(@RequestParam("index-page") int indexPage, @RequestParam("size") int size,
+                                     @RequestParam("customer-id") Integer customerId) {
+        return ResponseEntity.ok(petService.getAll(indexPage, size, customerId));
     }
 
     @PostMapping("/add")
