@@ -15,7 +15,8 @@ public interface PetRepository extends JpaRepository<Pet, Integer> {
 
     List<Pet> findAllByOrderByCreateAtDesc();
 
-    @Query(value = "select p from Pet p join CustomerPet cp on p.id = cp.pet.id where cp.customer_id = :customerId ")//hsql
+    //đây là hql chứ k phải là sql thường
+    @Query(value = "select p from Pet p join CustomerPet cp on p.id = cp.pet.id where cp.customer_id = :customerId ")
     Page<Pet> findAllByCustomerId(Pageable pageable,@Param("customerId") Integer customerId);
 
 
