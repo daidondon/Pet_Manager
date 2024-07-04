@@ -1,6 +1,7 @@
 package com.example.pet_manager.service.Impl;
 
 import com.example.pet_manager.service.EmailService;
+import com.example.pet_manager.service.OTPService;
 import com.twilio.http.TwilioRestClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,7 +10,7 @@ import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 
 @Service
-public class OTPServiceImpl {
+public class OTPServiceImpl implements OTPService {
     @Value("${twilio.phoneNumber}")
     private String twilioPhoneNumber;
 
