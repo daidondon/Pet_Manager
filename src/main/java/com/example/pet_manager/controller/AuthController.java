@@ -3,12 +3,14 @@ package com.example.pet_manager.controller;
 import com.example.pet_manager.config.JWTConfig;
 import com.example.pet_manager.dto.LoginRequestDTO;
 import com.example.pet_manager.dto.LoginResponseDTO;
+import com.example.pet_manager.dto.ProfileDTO;
 import com.example.pet_manager.dto.RegisterDto;
 import com.example.pet_manager.entity.Customer;
 import com.example.pet_manager.entity.Role;
 import com.example.pet_manager.entity.User;
 
 import com.example.pet_manager.request.EmailDetails;
+import com.example.pet_manager.request.ProfileRequest;
 import com.example.pet_manager.service.CustomerService;
 import com.example.pet_manager.service.EmailService;
 import com.example.pet_manager.service.OTPService;
@@ -61,7 +63,7 @@ public class AuthController {
         return attributes != null ? attributes.getRequest() : null;
     }
     @GetMapping("/profile")
-    public ResponseEntity<User> getProfile() {
+    public ResponseEntity<ProfileDTO> getProfile() {
         HttpServletRequest request = getCurrentHttpRequest();
         if (request == null) {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
@@ -75,7 +77,7 @@ public class AuthController {
         String jwt = authorizationHeader.substring(7);
         String email = jwtConfig.extractEmail(jwt);
 
-        User user = userService.getUserByEmail(email);
+        ProfileDTO user = userService.getUserByEmail(email);
         if (user == null) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
@@ -124,6 +126,28 @@ public class AuthController {
 
 
             return new ResponseEntity<>("Please check your phone or mail to verify", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error from server", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+    }
+    @PostMapping("update-profile")
+    public ResponseEntity<String> updateProfile(@RequestBody @Valid ProfileRequest profileRequest) {
+        try {
+
+
+
+
+            User user = new User();
+            user.setPassword(profileRequest.getPassword());
+            user.setPhone_number(profileRequest.getPhone_number());
+            user.setFull_name(profileRequest.getFull_name());
+            user.setAddress(profileRequest.getAddress());
+
+
+
+            return new ResponseEntity<>("Update successfully", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error from server", HttpStatus.INTERNAL_SERVER_ERROR);
         }

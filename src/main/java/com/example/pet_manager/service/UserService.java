@@ -1,6 +1,7 @@
 package com.example.pet_manager.service;
 
 
+import com.example.pet_manager.dto.ProfileDTO;
 import com.example.pet_manager.entity.Role;
 import com.example.pet_manager.entity.User;
 import org.springframework.data.jpa.repository.Query;
@@ -14,5 +15,5 @@ public interface UserService extends UserDetailsService {
     int addUser(User user);
     Boolean isExistEmail(String email);
     Set<String> findRolesByUsername(String username);
-    User getUserByEmail(String gmail);
+    ProfileDTO getUserByEmail(String gmail);
 }

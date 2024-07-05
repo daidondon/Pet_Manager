@@ -1,5 +1,6 @@
 package com.example.pet_manager.service.Impl;
 
+import com.example.pet_manager.dto.ProfileDTO;
 import com.example.pet_manager.entity.Customer;
 import com.example.pet_manager.entity.Role;
 import com.example.pet_manager.service.UserService;
@@ -42,10 +43,16 @@ public class UserServiceImpl implements UserService {
 
         }
     @Override
-    public User getUserByEmail(String gmail) {
+    public ProfileDTO getUserByEmail(String gmail) {
         Optional<User> existingUser = userRepository.findByGmail(gmail);
         if (existingUser.isPresent()) {
-            return existingUser.get();
+            ProfileDTO dto = new ProfileDTO();
+            dto.setAddress(existingUser.get().getAddress());
+            dto.setGmail(existingUser.get().getGmail());
+            dto.setPassword(existingUser.get().getPassword());
+            dto.setPhone_number(existingUser.get().getPhone_number());
+            dto.setFull_name(existingUser.get().getFull_name());
+            return dto;
         }
         else {
             throw new IllegalArgumentException("User not found");
