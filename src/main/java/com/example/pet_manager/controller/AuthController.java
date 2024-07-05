@@ -64,12 +64,12 @@ public class AuthController {
     public ResponseEntity<User> getProfile() {
         HttpServletRequest request = getCurrentHttpRequest();
         if (request == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
 
         String authorizationHeader = request.getHeader("Authorization");
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
 
         String jwt = authorizationHeader.substring(7);
@@ -77,13 +77,11 @@ public class AuthController {
 
         User user = userService.getUserByEmail(email);
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
 
-        // You can use the role for further authorization logic here if needed
-        // For example, you can add role-specific data to the response
 
-        return ResponseEntity.ok(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 
