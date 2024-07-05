@@ -14,4 +14,5 @@ public interface UserService extends UserDetailsService {
     int addUser(User user);
     Boolean isExistEmail(String email);
     Set<String> findRolesByUsername(String username);
+    User getUserByEmail(String gmail);
 }

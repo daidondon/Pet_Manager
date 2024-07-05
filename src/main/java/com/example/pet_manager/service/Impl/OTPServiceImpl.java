@@ -26,7 +26,7 @@ public class OTPServiceImpl implements OTPService {
 
     public boolean sendOtp(String recipientPhoneNumber, String otpCode) {
         try{
-            Message.creator(new PhoneNumber(recipientPhoneNumber), new PhoneNumber(twilioPhoneNumber),
+            Message.creator(new PhoneNumber("+84"+recipientPhoneNumber.substring(1)), new PhoneNumber(twilioPhoneNumber),
                             "Your OTP code is: " + otpCode)
                     .create(twilioRestClient);
             return true;

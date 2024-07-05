@@ -41,6 +41,17 @@ public class UserServiceImpl implements UserService {
         }
 
         }
+    @Override
+    public User getUserByEmail(String gmail) {
+        Optional<User> existingUser = userRepository.findByGmail(gmail);
+        if (existingUser.isPresent()) {
+            return existingUser.get();
+        }
+        else {
+            throw new IllegalArgumentException("User not found");
+        }
+
+    }
 
     @Override
     public int addUser(User user) {

@@ -8,8 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
+
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer,Integer> {
+    @Transactional
     @Modifying
     @Query(value = "INSERT INTO customer (user_id, role_id) VALUES (:userId, 1)", nativeQuery = true)
     void addCustomer(@Param("userId") int userId);

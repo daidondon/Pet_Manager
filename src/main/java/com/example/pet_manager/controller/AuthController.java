@@ -21,7 +21,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
@@ -50,6 +53,38 @@ public class AuthController {
 //
         this.userService = userService;
     }
+    @Autowired
+    private JWTConfig jwtConfig;
+
+    private HttpServletRequest getCurrentHttpRequest() {
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        return attributes != null ? attributes.getRequest() : null;
+    }
+    @GetMapping("/profile")
+    public ResponseEntity<User> getProfile() {
+        HttpServletRequest request = getCurrentHttpRequest();
+        if (request == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String authorizationHeader = request.getHeader("Authorization");
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String jwt = authorizationHeader.substring(7);
+        String email = jwtConfig.extractEmail(jwt);
+
+        User user = userService.getUserByEmail(email);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        // You can use the role for further authorization logic here if needed
+        // For example, you can add role-specific data to the response
+
+        return ResponseEntity.ok(user);
+    }
 
 
     @PostMapping("register")
@@ -69,13 +104,13 @@ public class AuthController {
                 boolean check = emailService.sendSimpleMail(emailDetails);
                 if (!check) {
 
-                    return new ResponseEntity<>("Sending code for verify to email fail!!", HttpStatus.OK);
+                    return new ResponseEntity<>("Sending code for verify to email fail!!", HttpStatus.BAD_REQUEST);
                 }
             }else{
                 boolean check = otpService.sendOtp(registerDto.getPhone_number(),code);
                 if (!check) {
 
-                    return new ResponseEntity<>("Sending code for verify to phone fail!!", HttpStatus.OK);
+                    return new ResponseEntity<>("Sending code for verify to phone fail!!", HttpStatus.BAD_REQUEST);
                 }
             }
             User user = new User();

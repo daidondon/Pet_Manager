@@ -9,6 +9,7 @@ import io.jsonwebtoken.security.Keys;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Key;
 import java.util.Date;
+import java.util.function.Function;
 
 public class JWTConfig {
     private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
@@ -35,6 +36,16 @@ public class JWTConfig {
         } catch (Exception e) {
             return false;
         }
+    }
+    public String extractEmail(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+    private Claims extractAllClaims(String token) {
+        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+    }
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
     }
 
 
