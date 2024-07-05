@@ -4,6 +4,7 @@ package com.example.pet_manager.service;
 import com.example.pet_manager.dto.ProfileDTO;
 import com.example.pet_manager.entity.Role;
 import com.example.pet_manager.entity.User;
+import com.example.pet_manager.request.ProfileRequest;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -16,4 +17,6 @@ public interface UserService extends UserDetailsService {
     Boolean isExistEmail(String email);
     Set<String> findRolesByUsername(String username);
     ProfileDTO getUserByEmail(String gmail);
+    Boolean updateProfile(ProfileRequest request,String email);
+
 }

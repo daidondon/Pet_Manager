@@ -136,18 +136,28 @@ public class AuthController {
     public ResponseEntity<String> updateProfile(@RequestBody @Valid ProfileRequest profileRequest) {
         try {
 
+            HttpServletRequest request = getCurrentHttpRequest();
+            if (request == null) {
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            }
 
+            String authorizationHeader = request.getHeader("Authorization");
+            if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            }
 
-
-            User user = new User();
-            user.setPassword(profileRequest.getPassword());
-            user.setPhone_number(profileRequest.getPhone_number());
-            user.setFull_name(profileRequest.getFull_name());
-            user.setAddress(profileRequest.getAddress());
-
+            String jwt = authorizationHeader.substring(7);
+            String email = jwtConfig.extractEmail(jwt);
+            Boolean check = userService.updateProfile(profileRequest,email);
+            if (!check) {
+                return new ResponseEntity<>("Update fail", HttpStatus.BAD_REQUEST);
+            }
 
 
             return new ResponseEntity<>("Update successfully", HttpStatus.OK);
+
+
+
         } catch (Exception e) {
             return new ResponseEntity<>("Error from server", HttpStatus.INTERNAL_SERVER_ERROR);
         }

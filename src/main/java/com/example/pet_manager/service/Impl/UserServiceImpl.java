@@ -3,6 +3,7 @@ package com.example.pet_manager.service.Impl;
 import com.example.pet_manager.dto.ProfileDTO;
 import com.example.pet_manager.entity.Customer;
 import com.example.pet_manager.entity.Role;
+import com.example.pet_manager.request.ProfileRequest;
 import com.example.pet_manager.service.UserService;
 import com.example.pet_manager.entity.User;
 import com.example.pet_manager.repository.UserRepository;
@@ -90,6 +91,26 @@ public class UserServiceImpl implements UserService {
                 userEntity.getPassword(),
                 authorities
         );
+    }
+    @Override
+    public Boolean updateProfile(ProfileRequest request,String email) {
+        try{
+
+            Optional<User> userOptional = userRepository.findByGmail(email);
+            if(userOptional.isPresent()) {
+                userOptional.get().setPassword(request.getPassword());
+                userOptional.get().setPhone_number(request.getPhone_number());
+                userOptional.get().setFull_name(request.getFull_name());
+                userOptional.get().setAddress(request.getAddress());
+                userRepository.save(userOptional.get());
+                return true;
+            }else{
+                return false;
+            }
+
+        }catch(Exception e){
+            return false;
+        }
     }
 
     @Override
