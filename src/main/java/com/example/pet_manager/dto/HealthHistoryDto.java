@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class HealthHistoryDto  {
+    private int id;
 
     private String description;
 

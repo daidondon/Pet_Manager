@@ -13,10 +13,14 @@ import com.example.pet_manager.repository.PetRepository;
 import com.example.pet_manager.request.HealthHistoryRequest;
 import com.example.pet_manager.request.VacinationHistoryRequest;
 import com.example.pet_manager.request.PetRequest;
+import com.example.pet_manager.response.CustomPageResponse;
 import com.example.pet_manager.response.EntityCustomResponse;
 import com.example.pet_manager.service.PetService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -98,9 +102,15 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public EntityCustomResponse getAll() {
-        List<Pet> listPet = petRepository.findAllByOrderByCreateAtDesc();
-        List<PetDto> listPetDto = listPet.stream().map(pet -> {
+    public EntityCustomResponse getAll(int indexPage, int size, Integer customerId) {
+        //paging
+        CustomPageResponse<PetDto> pageResponse = null;
+        int page = indexPage - 1;
+        Pageable pageable = PageRequest.of(page, size);
+
+
+        Page<Pet> petPage = petRepository.findAllByCustomerId(pageable, customerId);
+        List<PetDto> listPetDto = petPage.getContent().stream().map(pet -> {
             // Ánh xạ Pet thành PetDto
             PetDto petDto = modelMapper.map(pet, PetDto.class);
 
@@ -134,7 +144,10 @@ public class PetServiceImpl implements PetService {
             return petDto;
         }).collect(Collectors.toList());
 
-        return new EntityCustomResponse(1, "List pet", 200, listPetDto);
+        pageResponse = new CustomPageResponse<>(listPetDto, indexPage, size,
+                petPage.getTotalElements(), petPage.getTotalPages());
+
+        return new EntityCustomResponse(1, "List pet", 200, pageResponse);
     }
 
     @Override

@@ -42,4 +42,9 @@ public class Pet extends BaseEntity {
     @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
     @ToString.Exclude // Khong sử dụng trong toString()
     private List<VacinationHistory> vacinationHistory;
+
+    @OneToMany(mappedBy = "pet",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE )
+    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Khong sử dụng trong toString()
+    private List<CustomerPet> customerPets;
 }

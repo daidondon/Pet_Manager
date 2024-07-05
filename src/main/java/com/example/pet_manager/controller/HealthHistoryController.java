@@ -1,7 +1,9 @@
 package com.example.pet_manager.controller;
 
 import com.example.pet_manager.request.HealthHistoryRequest;
+import com.example.pet_manager.request.PetRequest;
 import com.example.pet_manager.service.HealthHistoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,11 @@ public class HealthHistoryController {
     @PostMapping("/add")
     public ResponseEntity<?> addHealthHistory(@RequestBody HealthHistoryRequest healthHistoryRequest) {
         return ResponseEntity.ok(healthHistoryService.addHealthHistory(healthHistoryRequest));
+    }
+
+    @PutMapping("delete")
+    public ResponseEntity<?> deleteHealthHistory(@RequestParam Integer healthHistoryId) {
+        return ResponseEntity.ok(healthHistoryService.deleteHealthHistory(healthHistoryId));
     }
 
 }

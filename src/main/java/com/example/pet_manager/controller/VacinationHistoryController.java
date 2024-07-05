@@ -23,4 +23,9 @@ public class VacinationHistoryController {
         return ResponseEntity.ok(vacinationHistoryService.addVacinationHistory(vacinationHistoryRequest));
     }
 
+    @PutMapping("delete")
+    public ResponseEntity<?> deleteVacinationHistory(@RequestParam Integer vacinationHistoryId) {
+        return ResponseEntity.ok(vacinationHistoryService.deleteVacinationHistory(vacinationHistoryId));
+    }
+
 }

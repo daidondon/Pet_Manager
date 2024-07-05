@@ -15,8 +15,9 @@ public class PetController {
     private PetService petService;
 
     @GetMapping("/list")
-    public ResponseEntity<?> listPet() {
-        return ResponseEntity.ok(petService.getAll());
+    public ResponseEntity<?> listPet(@RequestParam("index-page") int indexPage, @RequestParam("size") int size,
+                                     @RequestParam("customer-id") Integer customerId) {
+        return ResponseEntity.ok(petService.getAll(indexPage, size, customerId));
     }
 
     @PostMapping("/add")
@@ -24,12 +25,12 @@ public class PetController {
         return ResponseEntity.ok(petService.addPet(petRequest));
     }
 
-    @PostMapping("update")
+    @PutMapping("update")
     public ResponseEntity<?> updatePet(@Valid @RequestBody PetRequest petRequest) {
         return ResponseEntity.ok(petService.updatePet(petRequest));
     }
 
-    @PostMapping("delete")
+    @PutMapping("delete")
     public ResponseEntity<?> deletePet(@RequestParam Integer petId) {
         return ResponseEntity.ok(petService.deletePet(petId));
     }

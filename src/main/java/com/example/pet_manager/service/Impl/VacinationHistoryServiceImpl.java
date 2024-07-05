@@ -1,14 +1,17 @@
 package com.example.pet_manager.service.Impl;
 
 import com.example.pet_manager.dto.VacinationHistoryDto;
+import com.example.pet_manager.entity.HealthHistory;
 import com.example.pet_manager.entity.Pet;
 import com.example.pet_manager.entity.VacinationHistory;
+import com.example.pet_manager.exception.APIException;
 import com.example.pet_manager.repository.VacinationHistoryRepository;
 import com.example.pet_manager.request.VacinationHistoryRequest;
 import com.example.pet_manager.response.EntityCustomResponse;
 import com.example.pet_manager.service.VacinationHistoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -63,5 +66,18 @@ public class VacinationHistoryServiceImpl implements VacinationHistoryService {
         return new EntityCustomResponse(1, "List vacination history", 200, listVacinationHistoryDto);
     }
 
+    @Override
+    @Transactional
+    public EntityCustomResponse deleteVacinationHistory(Integer vacinationHistoryId) {
+
+        if (ObjectUtils.isEmpty(vacinationHistoryId)) {
+            throw new APIException(HttpStatus.INTERNAL_SERVER_ERROR, "Id không được để trống");
+        }
+        // tìm rồi xóa
+        VacinationHistory vacinationHistory = vacinationHistoryRepository.findById(vacinationHistoryId).orElseThrow(() -> new APIException(HttpStatus.INTERNAL_SERVER_ERROR, "không tìm thấy Vacination History"));
+        vacinationHistoryRepository.delete(vacinationHistory);
+
+        return new EntityCustomResponse(1, "Delete Vacination History Success", 200, null);
+    }
 
 }

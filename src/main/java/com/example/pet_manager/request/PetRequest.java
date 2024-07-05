@@ -17,7 +17,7 @@ public class PetRequest {
 
     private Integer id; //id của pet , dùng khi update
 
-    @NotNull(message = "id must not be null") // thêm cái này để nó tự bắn lỗi , vì đã config exception handle
+    @NotNull(message = "id must not be null")
     @NotBlank(message = "name must not be blank")
     private String name;
 
@@ -40,4 +40,5 @@ public class PetRequest {
 
     @JsonProperty("vacination_history_requests")
     private List<VacinationHistoryRequest> vacinationHistoryRequests;
+
 }
