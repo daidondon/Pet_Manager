@@ -14,7 +14,7 @@ public class VacinationHistoryController {
     private VacinationHistoryService vacinationHistoryService;
 
     @GetMapping("/list")
-    public ResponseEntity<?> listVacinationHistory(@RequestParam Integer petId) {
+    public ResponseEntity<?> listVacinationHistory(@RequestParam("pet-id") Integer petId) {
         return ResponseEntity.ok(vacinationHistoryService.getAll(petId));
     }
 
@@ -24,7 +24,7 @@ public class VacinationHistoryController {
     }
 
     @PutMapping("delete")
-    public ResponseEntity<?> deleteVacinationHistory(@RequestParam Integer vacinationHistoryId) {
+    public ResponseEntity<?> deleteVacinationHistory(@RequestParam("vacinationhistory-id") Integer vacinationHistoryId) {
         return ResponseEntity.ok(vacinationHistoryService.deleteVacinationHistory(vacinationHistoryId));
     }
 

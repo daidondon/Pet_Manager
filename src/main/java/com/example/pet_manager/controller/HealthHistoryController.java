@@ -16,7 +16,7 @@ public class HealthHistoryController {
     private HealthHistoryService healthHistoryService;
 
     @GetMapping("/list")
-    public ResponseEntity<?> listHealthHistory(@RequestParam Integer petId) {
+    public ResponseEntity<?> listHealthHistory(@RequestParam("pet-id") Integer petId) {
         return ResponseEntity.ok(healthHistoryService.getAll(petId));
     }
 
@@ -26,7 +26,7 @@ public class HealthHistoryController {
     }
 
     @PutMapping("delete")
-    public ResponseEntity<?> deleteHealthHistory(@RequestParam Integer healthHistoryId) {
+    public ResponseEntity<?> deleteHealthHistory(@RequestParam("healthhistory-id") Integer healthHistoryId) {
         return ResponseEntity.ok(healthHistoryService.deleteHealthHistory(healthHistoryId));
     }
 

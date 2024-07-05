@@ -17,7 +17,7 @@ public class MedicineController {
     private MedicineService medicineService;
 
     @GetMapping("/list")
-    public ResponseEntity<?> listMedicine(@RequestParam Integer clinicId) {
+    public ResponseEntity<?> listMedicine(@RequestParam("clinic-id") Integer clinicId) {
 
         return ResponseEntity.ok(medicineService.getAll(clinicId));
     }
@@ -33,7 +33,7 @@ public class MedicineController {
     }
 
     @PutMapping("delete")
-    public ResponseEntity<?> deleteMedicine(@RequestParam Integer medicineId) {
+    public ResponseEntity<?> deleteMedicine(@RequestParam("medicine-id") Integer medicineId) {
         return ResponseEntity.ok(medicineService.deleteMedicine(medicineId));
     }
 }

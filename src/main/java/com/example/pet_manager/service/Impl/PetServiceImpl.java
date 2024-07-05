@@ -3,13 +3,16 @@ package com.example.pet_manager.service.Impl;
 import com.example.pet_manager.dto.HealthHistoryDto;
 import com.example.pet_manager.dto.VacinationHistoryDto;
 import com.example.pet_manager.dto.PetDto;
+import com.example.pet_manager.entity.CustomerPet;
 import com.example.pet_manager.entity.HealthHistory;
 import com.example.pet_manager.entity.VacinationHistory;
 import com.example.pet_manager.entity.Pet;
 import com.example.pet_manager.exception.APIException;
+import com.example.pet_manager.repository.CustomerPetRepository;
 import com.example.pet_manager.repository.HealthHistoryRepository;
 import com.example.pet_manager.repository.VacinationHistoryRepository;
 import com.example.pet_manager.repository.PetRepository;
+import com.example.pet_manager.request.CustomerPetRequest;
 import com.example.pet_manager.request.HealthHistoryRequest;
 import com.example.pet_manager.request.VacinationHistoryRequest;
 import com.example.pet_manager.request.PetRequest;
@@ -46,6 +49,9 @@ public class PetServiceImpl implements PetService {
     @Autowired
     private VacinationHistoryRepository vacinationHistoryRepository;
 
+    @Autowired
+    private CustomerPetRepository customerPetRepository;
+
     @Transactional
     @Override
     public EntityCustomResponse addPet(PetRequest petRequest) {
@@ -57,6 +63,7 @@ public class PetServiceImpl implements PetService {
         pet.setIdentifying(petRequest.getIdentifying());
         pet.setOriginCertificate(petRequest.getOriginCertificate());
         pet.setTransferContract(petRequest.getTransferContract());
+
 
         pet.setCreateAt(LocalDateTime.now());
         pet.setUpdateAt(LocalDateTime.now());
@@ -94,7 +101,22 @@ public class PetServiceImpl implements PetService {
         }
         List<VacinationHistory> vacinationHistoryListDb = vacinationHistoryRepository.saveAll(vacinationHistoryList);
         if (ObjectUtils.isEmpty(vacinationHistoryListDb)) {
-            // exception handler
+            //TODO : exception handler
+        }
+
+        //process Customer_Pet
+        List<CustomerPet> customerPetArrayList = new ArrayList<>();
+        for (CustomerPetRequest data : petRequest.getCustomerPetRequests()) {
+            CustomerPet customerPet = new CustomerPet();
+            customerPet.setCustomer_id(data.getCustomer_id());
+            customerPet.setStatus(data.getStatus());
+            customerPet.setOwner_from_date(LocalDateTime.now());
+            customerPet.setPet(petDb);
+            customerPetArrayList.add(customerPet);
+        }
+        List<CustomerPet> customerPetListDb = customerPetRepository.saveAll(customerPetArrayList);
+        if (ObjectUtils.isEmpty(customerPetListDb)) {
+
             throw new APIException(HttpStatus.INTERNAL_SERVER_ERROR, "update pet thất bại");
         }
 
