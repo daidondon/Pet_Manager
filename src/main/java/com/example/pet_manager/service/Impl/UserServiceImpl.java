@@ -114,6 +114,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserByGmail(String gmail) {
+        try{
+
+            Optional<User> userOptional = userRepository.findByGmail(gmail);
+            return userOptional.orElseThrow(() -> new UsernameNotFoundException("User not found with gmail: " + gmail));
+
+        }catch(Exception e){
+            return null;
+        }
+    }
+
+    @Override
+    public void updateUser(User user) {
+        try{
+            userRepository.save(user);
+        }catch(Exception e){
+
+        }
+    }
+
+    @Override
     public Set<String> findRolesByUsername(String username) {
         Optional<User> optionalUser = userRepository.findByGmail(username);
         User user = optionalUser.orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));

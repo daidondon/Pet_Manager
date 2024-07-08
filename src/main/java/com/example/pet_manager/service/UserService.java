@@ -18,5 +18,6 @@ public interface UserService extends UserDetailsService {
     Set<String> findRolesByUsername(String username);
     ProfileDTO getUserByEmail(String gmail);
     Boolean updateProfile(ProfileRequest request,String email);
-
+    User findUserByGmail(String gmail);
+    void updateUser(User user);
 }

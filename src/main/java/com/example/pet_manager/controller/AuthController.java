@@ -164,6 +164,35 @@ public class AuthController {
 
 
     }
+    @PostMapping("forgot-password")
+    public ResponseEntity<String> ForgotPassword(@RequestParam String email) {
+        try {
+
+            String code = emailService.generateVerifyCode();
+            EmailDetails emailDetails = new EmailDetails();
+            emailDetails.setSubject("New Password");
+            emailDetails.setMsgBody(code);
+            emailDetails.setRecipient(email);
+            boolean check = emailService.sendSimpleMail(emailDetails);
+            if (!check) {
+
+                return new ResponseEntity<>("Sending code for verify to email fail!!", HttpStatus.BAD_REQUEST);
+            }
+            User user = userService.findUserByGmail(email);
+            user.setPassword(code);
+            userService.updateUser(user);
+
+
+            return new ResponseEntity<>("New password send successfully to your gmail", HttpStatus.OK);
+
+
+
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error from server", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequestDTO loginRequestDTO, HttpServletResponse response) {

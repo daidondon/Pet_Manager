@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/auth/login").permitAll()
                 .antMatchers("/api/auth/register").permitAll()
+                .antMatchers("/api/auth/forgot-password").permitAll()
                 .antMatchers("/api/auth/profile").hasAnyAuthority("CUSTOMER","DOCTOR","HOST","ADMIN")
                 .antMatchers("/api/auth/update-profile").hasAnyAuthority("CUSTOMER","DOCTOR","HOST","ADMIN")
                 .anyRequest().authenticated()
