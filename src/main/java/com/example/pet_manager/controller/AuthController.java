@@ -179,6 +179,9 @@ public class AuthController {
                 return new ResponseEntity<>("Sending code for verify to email fail!!", HttpStatus.BAD_REQUEST);
             }
             User user = userService.findUserByGmail(email);
+            if(user == null){
+                return new ResponseEntity<>("User email not found", HttpStatus.NOT_FOUND);
+            }
             user.setPassword(code);
             userService.updateUser(user);
 
