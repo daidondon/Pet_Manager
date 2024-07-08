@@ -80,4 +80,16 @@ public class VacinationHistoryServiceImpl implements VacinationHistoryService {
         return new EntityCustomResponse(1, "Delete Vacination History Success", 200, null);
     }
 
+    @Override
+    public EntityCustomResponse findByName(Integer petId, String vacciname) {
+        List<VacinationHistory> listVacinationHistory = vacinationHistoryRepository.findByName(petId, vacciname);
+        List<VacinationHistoryDto> listVacinationHistoryDto = listVacinationHistory.stream().map(vacinationHistory -> {
+            // Ánh xạ Pet thành PetDto
+            VacinationHistoryDto vacinationHistoryDto = modelMapper.map(vacinationHistory, VacinationHistoryDto.class);
+            return vacinationHistoryDto;
+        }).collect(Collectors.toList());
+
+        return new EntityCustomResponse(1, "List vacination history", 200, listVacinationHistoryDto);
+    }
+
 }

@@ -28,4 +28,9 @@ public class VacinationHistoryController {
         return ResponseEntity.ok(vacinationHistoryService.deleteVacinationHistory(vacinationHistoryId));
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<?> searchByNameVacinationHistory(@RequestParam("pet-id") Integer petId, @RequestParam String vacciname) {
+        return ResponseEntity.ok(vacinationHistoryService.findByName(petId, vacciname));
+    }
+
 }

@@ -40,4 +40,5 @@ public class VacinationHistory {
     private Date injectionDate;
 
 
+
 }
