@@ -1,7 +1,6 @@
 package com.example.pet_manager.controller;
 
 import com.example.pet_manager.request.MedicineRequest;
-import com.example.pet_manager.request.PetRequest;
 import com.example.pet_manager.service.MedicineService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

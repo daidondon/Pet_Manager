@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Data
 public class CustomerPetDto {
 
-    private int id;
+    private Integer id;
 
     private Integer customer_id;
 
