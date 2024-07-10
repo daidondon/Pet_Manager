@@ -5,6 +5,7 @@ import com.example.pet_manager.dto.ProfileDTO;
 import com.example.pet_manager.entity.Role;
 import com.example.pet_manager.entity.User;
 import com.example.pet_manager.request.ProfileRequest;
+import com.example.pet_manager.response.AccountResponseForAdmin;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -20,4 +21,6 @@ public interface UserService extends UserDetailsService {
     Boolean updateProfile(ProfileRequest request,String email);
     User findUserByGmail(String gmail);
     void updateUser(User user);
+
+    List<AccountResponseForAdmin> listAllAcountForAdmin();
 }

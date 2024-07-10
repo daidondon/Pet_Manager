@@ -4,6 +4,7 @@ import com.example.pet_manager.dto.ProfileDTO;
 import com.example.pet_manager.entity.Customer;
 import com.example.pet_manager.entity.Role;
 import com.example.pet_manager.request.ProfileRequest;
+import com.example.pet_manager.response.AccountResponseForAdmin;
 import com.example.pet_manager.service.UserService;
 import com.example.pet_manager.entity.User;
 import com.example.pet_manager.repository.UserRepository;
@@ -132,6 +133,28 @@ public class UserServiceImpl implements UserService {
         }catch(Exception e){
 
         }
+    }
+
+    @Override
+    public List<AccountResponseForAdmin> listAllAcountForAdmin() {
+        List<AccountResponseForAdmin> accounts = new ArrayList<>();
+        try{
+            List<User> list = userRepository.findAll();
+
+            for (User user : list) {
+                AccountResponseForAdmin item = new AccountResponseForAdmin();
+                item.setId(user.getId());
+                item.setAddress(item.getAddress());
+                item.setFull_name(item.getFull_name());
+                item.setPhone_number(item.getPhone_number());
+                item.setRoles(findRolesByUsername(user.getGmail()));
+                item.setStatus(user.getStatus());
+                accounts.add(item);
+            }
+        }catch(Exception e){
+            return null;
+        }
+        return accounts;
     }
 
     @Override
