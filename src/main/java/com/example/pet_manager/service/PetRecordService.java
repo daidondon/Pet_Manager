@@ -5,6 +5,6 @@ import com.example.pet_manager.response.EntityCustomResponse;
 
 public interface PetRecordService {
 
-    EntityCustomResponse getAll();
+    EntityCustomResponse getAll(Integer petId);
 
 }

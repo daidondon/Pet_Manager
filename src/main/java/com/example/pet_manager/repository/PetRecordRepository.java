@@ -1,6 +1,5 @@
 package com.example.pet_manager.repository;
 
-import com.example.pet_manager.entity.Pet;
 import com.example.pet_manager.entity.PetRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,5 +11,5 @@ import java.util.List;
 @Repository
 public interface PetRecordRepository extends JpaRepository<PetRecord, Integer>{
 
-    List<PetRecord> findAllByOrderByCreateAtDesc();
+    List<PetRecord> findByPetId(Integer petId);
 }

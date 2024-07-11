@@ -39,14 +39,17 @@ public class PetRecordServiceImpl implements PetRecordService {
 
     @Override
     @Transactional
-    public EntityCustomResponse getAll() {
-        List<PetRecord> listPetRecord = petRecordRepository.findAllByOrderByCreateAtDesc();
+    public EntityCustomResponse getAll(Integer petId) {
+        List<PetRecord> listPetRecord = petRecordRepository.findByPetId(petId);
         List<PetRecordDto> listPetRecordDto = listPetRecord.stream().map(petRecord ->{
 
             PetRecordDto petRecordDto = modelMapper.map(petRecord, PetRecordDto.class);
             Doctor doctor= petRecord.getDoctor();
             petRecord.getDoctor();
-
+            DoctorDto doctorDto=modelMapper.map(doctor, DoctorDto.class);
+            doctorDto.setUser(null);
+            doctorDto.setUserName(petRecord.getDoctor().getUser().getFullName());
+            petRecordDto.setDoctorDto(doctorDto);
             return petRecordDto;
         }).collect(Collectors.toList());
 

@@ -43,6 +43,6 @@ public class PetRecordDto {
     @JsonProperty("re_examination")
     private String reExamination;
 
-    private Doctor doctorDto;
+    private DoctorDto doctorDto;
 
 }

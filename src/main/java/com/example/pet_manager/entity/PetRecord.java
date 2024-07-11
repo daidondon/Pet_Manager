@@ -47,4 +47,7 @@ public class PetRecord extends BaseEntity{
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
+    @Column(name = "pet_id")
+    private Integer petId;
+
 }

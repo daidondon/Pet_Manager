@@ -26,7 +26,7 @@ public class Doctor {
     @ToString.Exclude // Khong sử dụng trong toString()
     private List<PetRecord> petRecord;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
     private User user;
 

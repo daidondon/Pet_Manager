@@ -11,7 +11,7 @@ import java.util.List;
 @ToString
 @Entity
 @Data
-@Table(name = "user")
+@Table(name = "user_pet")
 public class User {
 
     @Id
