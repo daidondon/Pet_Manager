@@ -10,4 +10,6 @@ public interface VacinationHistoryService {
     EntityCustomResponse getAll(Integer petId);
 
     EntityCustomResponse deleteVacinationHistory(Integer vacinationHistoryId);
+
+    EntityCustomResponse findByName(Integer petId, String vacciname);
 }

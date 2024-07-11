@@ -31,7 +31,7 @@ public class PetController {
     }
 
     @PutMapping("delete")
-    public ResponseEntity<?> deletePet(@RequestParam Integer petId) {
+    public ResponseEntity<?> deletePet(@RequestParam("pet-id") Integer petId) {
         return ResponseEntity.ok(petService.deletePet(petId));
     }
 

@@ -41,4 +41,7 @@ public class PetRequest {
     @JsonProperty("vacination_history_requests")
     private List<VacinationHistoryRequest> vacinationHistoryRequests;
 
+    @JsonProperty("customer_pet")
+    private List<CustomerPetRequest> customerPetRequests;
+
 }

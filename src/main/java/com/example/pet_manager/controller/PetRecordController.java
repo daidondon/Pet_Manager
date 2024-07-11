@@ -1,0 +1,21 @@
+package com.example.pet_manager.controller;
+
+import com.example.pet_manager.request.PetRecordRequest;
+import com.example.pet_manager.service.PetRecordService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/petRecord")
+public class PetRecordController {
+    @Autowired
+    private PetRecordService petRecordService;
+
+    @GetMapping("/list")
+    public ResponseEntity<?> listPetRecord() {
+        return ResponseEntity.ok(petRecordService.getAll());
+    }
+
+}
