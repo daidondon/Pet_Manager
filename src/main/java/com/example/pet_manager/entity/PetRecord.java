@@ -43,6 +43,8 @@ public class PetRecord extends BaseEntity{
     @Column(name = "re_examination")
     private String reExamination;
 
-
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
 
 }

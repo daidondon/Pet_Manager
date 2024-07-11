@@ -1,7 +1,6 @@
 package com.example.pet_manager.service.Impl;
 
 import com.example.pet_manager.dto.VacinationHistoryDto;
-import com.example.pet_manager.entity.HealthHistory;
 import com.example.pet_manager.entity.Pet;
 import com.example.pet_manager.entity.VacinationHistory;
 import com.example.pet_manager.exception.APIException;
@@ -58,7 +57,7 @@ public class VacinationHistoryServiceImpl implements VacinationHistoryService {
     public EntityCustomResponse getAll(Integer petId) {
         List<VacinationHistory> listVacinationHistory = vacinationHistoryRepository.findAllByPetId(petId);
         List<VacinationHistoryDto> listVacinationHistoryDto = listVacinationHistory.stream().map(vacinationHistory -> {
-            // Ánh xạ Pet thành PetDto
+
             VacinationHistoryDto vacinationHistoryDto = modelMapper.map(vacinationHistory, VacinationHistoryDto.class);
             return vacinationHistoryDto;
         }).collect(Collectors.toList());

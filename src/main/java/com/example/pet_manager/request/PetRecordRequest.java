@@ -1,19 +1,16 @@
-package com.example.pet_manager.dto;
+package com.example.pet_manager.request;
 
-import com.example.pet_manager.entity.Doctor;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDate;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
+public class PetRecordRequest {
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-public class PetRecordDto {
+    private Integer id; //id của pet , dùng khi update
 
-    private Integer id;
 
     @JsonProperty("examination_date")
     private LocalDate examinationDate;
@@ -42,7 +39,5 @@ public class PetRecordDto {
 
     @JsonProperty("re_examination")
     private String reExamination;
-
-    private Doctor doctorDto;
 
 }
