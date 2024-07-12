@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -12,7 +13,12 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "pet_records")
-public class PetRecord extends BaseEntity{
+public class PetRecord {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     @Column(name = "examination_date")
     private LocalDate examinationDate;
 
@@ -49,5 +55,11 @@ public class PetRecord extends BaseEntity{
 
     @Column(name = "pet_id")
     private Integer petId;
+
+    @Column(name = "create_by")
+    private Integer createBy;
+
+    @Column(name = "create_at")
+    private LocalDateTime createAt;
 
 }

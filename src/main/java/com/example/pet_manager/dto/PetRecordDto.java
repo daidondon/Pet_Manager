@@ -3,6 +3,8 @@ package com.example.pet_manager.dto;
 import com.example.pet_manager.entity.Doctor;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -44,5 +46,11 @@ public class PetRecordDto {
     private String reExamination;
 
     private DoctorDto doctorDto;
+
+    @JsonProperty("create_by")
+    private Integer createBy;
+
+    @JsonProperty("create_at")
+    private LocalDateTime createAt;
 
 }
