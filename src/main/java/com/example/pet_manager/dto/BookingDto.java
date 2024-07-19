@@ -23,13 +23,7 @@ public class BookingDto {
 
     private String content;
 
-    @JsonProperty("customer_name")
-    private String customerName;
+    private CustomerDto customerDto;
 
-    @JsonProperty("customer_phone")
-    private String customerPhone;
-
-    @JsonProperty("customer_gmail")
-    private String customerGmail;
 
 }

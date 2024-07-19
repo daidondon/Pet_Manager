@@ -32,6 +32,6 @@ public class Booking {
     private String content;
 
     @Column(name = "doctor_id")
-    private String doctorId;
+    private Integer doctorId;
 
 }
