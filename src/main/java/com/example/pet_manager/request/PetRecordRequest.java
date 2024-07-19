@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Data
 public class PetRecordRequest {
 
-    private Integer id; //id của pet , dùng khi update
+    private Integer id;
 
     @NotNull(message = "id must not be null")
     @NotBlank(message = "name must not be blank")
