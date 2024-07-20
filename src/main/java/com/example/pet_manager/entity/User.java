@@ -33,6 +33,9 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "status")
+    private int status;
+
     @OneToOne(mappedBy = "user")
     private Doctor doctor;
 

@@ -21,6 +21,12 @@ public class Doctor {
     @Column(name = "link_meet")
     private String linkMeet;
 
+    @Column(name = "role_id")
+    private int roleId;
+
+    @Column(name = "clinic_id")
+    private int clinicId;
+
     @OneToMany(mappedBy = "doctor",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE )
     @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
     @ToString.Exclude // Khong sử dụng trong toString()

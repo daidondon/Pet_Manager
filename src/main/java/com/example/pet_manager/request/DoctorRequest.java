@@ -1,15 +1,20 @@
-package com.example.pet_manager.dto;
+package com.example.pet_manager.request;
 
-import com.example.pet_manager.entity.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
-public class DoctorDto {
+public class DoctorRequest {
 
+    private int id;
 
-    @JsonProperty("user_name")
-    String userName;
+    @JsonProperty("user_id")
+    private int userId;
 
     @JsonProperty("role_id")
     private int roleId;
@@ -19,7 +24,5 @@ public class DoctorDto {
 
     @JsonProperty("link_meet")
     private String linkMeet;
-
-    private User user;
 
 }
