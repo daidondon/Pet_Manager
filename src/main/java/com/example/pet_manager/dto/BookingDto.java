@@ -23,6 +23,8 @@ public class BookingDto {
 
     private String content;
 
+    private int status;
+
     private CustomerDto customerDto;
 
 

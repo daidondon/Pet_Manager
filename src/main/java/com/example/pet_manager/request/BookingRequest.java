@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 @Data
 public class BookingRequest {
 
+    private Integer id;
+
     @NotNull(message = "id must not be null")
     @NotBlank(message = "name must not be blank")
     @JsonProperty("customer_id")
@@ -30,4 +32,6 @@ public class BookingRequest {
     private LocalDateTime checkOut;
 
     private String content;
+
+    private int status;
 }

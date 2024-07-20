@@ -34,4 +34,7 @@ public class Booking {
     @Column(name = "doctor_id")
     private Integer doctorId;
 
+    @Column(name = "status")
+    private int status;
+
 }

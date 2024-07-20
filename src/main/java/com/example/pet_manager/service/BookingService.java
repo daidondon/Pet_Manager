@@ -9,4 +9,6 @@ public interface BookingService {
 
     EntityCustomResponse addBooking(BookingRequest bookingRequest);
 
+    EntityCustomResponse updateBooking(BookingRequest bookingRequest);
+
 }

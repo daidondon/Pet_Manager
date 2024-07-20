@@ -4,6 +4,8 @@ import com.example.pet_manager.dto.BookingDto;
 import com.example.pet_manager.dto.CustomerDto;
 import com.example.pet_manager.entity.Booking;
 import com.example.pet_manager.entity.Customer;
+import com.example.pet_manager.entity.Pet;
+import com.example.pet_manager.exception.APIException;
 import com.example.pet_manager.repository.BookingRepository;
 import com.example.pet_manager.request.BookingRequest;
 import com.example.pet_manager.response.EntityCustomResponse;
@@ -57,8 +59,10 @@ public class BookingServiceImpl implements BookingService {
         customer.setId(bookingRequest.getCustomerId());
         booking.setCustomer(customer);
         booking.setDoctorId(bookingRequest.getDoctorId());
+        booking.setContent(bookingRequest.getContent());
         booking.setCheckIn(bookingRequest.getCheckIn());
         booking.setCheckOut(bookingRequest.getCheckOut());
+
 
         Booking bookingDb = bookingRepository.save(booking);
         if (ObjectUtils.isEmpty(bookingDb)) {
@@ -67,5 +71,25 @@ public class BookingServiceImpl implements BookingService {
 
         return new EntityCustomResponse(1, "Add Booking Success", 200, bookingDb);
 
+    }
+
+    @Override
+    @Transactional
+    public EntityCustomResponse updateBooking(BookingRequest bookingRequest) {
+        if (ObjectUtils.isEmpty(bookingRequest.getId())) {
+            throw new APIException(HttpStatus.INTERNAL_SERVER_ERROR, "Id không được để trống");
+        }
+        Booking booking = bookingRepository.findById(bookingRequest.getId()).orElseThrow(() -> new APIException(HttpStatus.INTERNAL_SERVER_ERROR, "không tìm thấy booking"));
+        booking.setStatus(bookingRequest.getStatus());
+
+
+        Booking bookingDb = bookingRepository.save(booking);
+        if (ObjectUtils.isEmpty(bookingDb)) {
+            throw new APIException(HttpStatus.INTERNAL_SERVER_ERROR, "update booking thất bại");
+        }
+
+        bookingDb.setCustomer(null);
+
+        return new EntityCustomResponse(1, "Update Booking Success", 200, bookingDb);
     }
 }
