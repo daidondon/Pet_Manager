@@ -87,8 +87,6 @@ public class BookingServiceImpl implements BookingService {
             throw new APIException(HttpStatus.INTERNAL_SERVER_ERROR, "update booking thất bại");
         }
 
-        bookingDb.setCustomer(null);
-
-        return new EntityCustomResponse(1, "Update Booking Success", 200, bookingDb);
+        return new EntityCustomResponse(1, "Update Booking Success", 200, null);
     }
 }
