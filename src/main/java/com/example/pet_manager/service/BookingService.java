@@ -9,6 +9,6 @@ public interface BookingService {
 
     EntityCustomResponse addBooking(BookingRequest bookingRequest);
 
-    EntityCustomResponse updateBooking(BookingRequest bookingRequest);
+    EntityCustomResponse updateBooking(Integer bookingId, Integer status);
 
 }

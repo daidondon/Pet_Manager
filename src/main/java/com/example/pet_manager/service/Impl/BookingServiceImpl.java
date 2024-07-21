@@ -75,13 +75,12 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     @Transactional
-    public EntityCustomResponse updateBooking(BookingRequest bookingRequest) {
-        if (ObjectUtils.isEmpty(bookingRequest.getId())) {
+    public EntityCustomResponse updateBooking(Integer bookingId, Integer status) {
+        if (ObjectUtils.isEmpty(bookingId)) {
             throw new APIException(HttpStatus.INTERNAL_SERVER_ERROR, "Id không được để trống");
         }
-        Booking booking = bookingRepository.findById(bookingRequest.getId()).orElseThrow(() -> new APIException(HttpStatus.INTERNAL_SERVER_ERROR, "không tìm thấy booking"));
-        booking.setStatus(bookingRequest.getStatus());
-
+        Booking booking = bookingRepository.findById(bookingId).orElseThrow(() -> new APIException(HttpStatus.INTERNAL_SERVER_ERROR, "không tìm thấy booking"));
+        booking.setStatus(status);
 
         Booking bookingDb = bookingRepository.save(booking);
         if (ObjectUtils.isEmpty(bookingDb)) {

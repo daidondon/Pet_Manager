@@ -26,8 +26,8 @@ public class BookingController {
     }
 
     @PutMapping("update")
-    public ResponseEntity<?> updateBooking(@Valid @RequestBody BookingRequest bookingRequest) {
-        return ResponseEntity.ok(bookingService.updateBooking(bookingRequest));
+    public ResponseEntity<?> updateBooking(@RequestParam("booking-id") Integer bookingId, Integer status) {
+        return ResponseEntity.ok(bookingService.updateBooking(bookingId, status));
     }
 
 }
