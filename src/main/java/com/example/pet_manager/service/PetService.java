@@ -7,6 +7,10 @@ public interface PetService {
 
     EntityCustomResponse addPet(PetRequest petRequest);
 
-    EntityCustomResponse getAll();
+    EntityCustomResponse getAll(int indexPage, int size, Integer customerId);
+
+    EntityCustomResponse updatePet(PetRequest petRequest);
+
+    EntityCustomResponse deletePet(Integer petId);
 
 }

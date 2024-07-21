@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -13,7 +17,7 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Data
-@Table(name = "Pet")
+@Table(name = "pet")
 public class Pet extends BaseEntity {
     @Column(name = "name")
     private String name;
@@ -36,4 +40,18 @@ public class Pet extends BaseEntity {
     @Column(name = "transfer_contract")
     private String transferContract;
 
+    @OneToMany(mappedBy = "pet",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE )
+    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Khong sử dụng trong toString()
+    private List<HealthHistory> healthHistory;
+
+    @OneToMany(mappedBy = "pet",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE )
+    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Khong sử dụng trong toString()
+    private List<VacinationHistory> vacinationHistory;
+
+    @OneToMany(mappedBy = "pet",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE )
+    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Khong sử dụng trong toString()
+    private List<CustomerPet> customerPets;
 }
