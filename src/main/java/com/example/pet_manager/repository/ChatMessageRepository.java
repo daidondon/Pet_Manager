@@ -14,8 +14,8 @@ public interface ChatMessageRepository extends JpaRepository<Message, Long> {
             "       m.receiver_id, receiver.gmail AS receiver_name, " +
             "       m.content, m.timestamp, m.message_type " +
             "FROM message m " +
-            "JOIN user sender ON m.sender_id = sender.id " +
-            "JOIN user receiver ON m.receiver_id = receiver.id " +
+            "JOIN [user] sender ON m.sender_id = sender.id " +
+            "JOIN [user] receiver ON m.receiver_id = receiver.id " +
             "WHERE (m.sender_id = ?1 AND m.receiver_id = ?2) " +
             "   OR (m.sender_id = ?3 AND m.receiver_id = ?4) " +
             "ORDER BY m.timestamp ASC", nativeQuery = true)

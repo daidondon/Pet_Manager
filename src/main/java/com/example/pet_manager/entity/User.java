@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "[User]",
+@Table(name = "[user_pet]",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "gmail")
         })
