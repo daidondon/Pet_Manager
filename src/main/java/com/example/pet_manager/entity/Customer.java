@@ -11,26 +11,17 @@ import java.util.List;
 @ToString
 @Entity
 @Data
-@Table(name = "doctor")
-public class Doctor {
+@Table(name = "customer")
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "link_meet")
-    private String linkMeet;
-
-    @Column(name = "role_id")
-    private int roleId;
-
-    @Column(name = "clinic_id")
-    private int clinicId;
-
-    @OneToMany(mappedBy = "doctor",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE )
+    @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE )
     @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
     @ToString.Exclude // Khong sử dụng trong toString()
-    private List<PetRecord> petRecord;
+    private List<Booking> booking;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")

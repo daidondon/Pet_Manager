@@ -117,7 +117,7 @@ public class PetServiceImpl implements PetService {
         List<CustomerPet> customerPetListDb = customerPetRepository.saveAll(customerPetArrayList);
         if (ObjectUtils.isEmpty(customerPetListDb)) {
 
-            throw new APIException(HttpStatus.INTERNAL_SERVER_ERROR, "update pet thất bại");
+            throw new APIException(HttpStatus.INTERNAL_SERVER_ERROR, "add pet thất bại");
         }
 
         return new EntityCustomResponse(1, "Add Pet Success", 200, petDb);

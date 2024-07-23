@@ -50,7 +50,7 @@ public class VacinationHistoryServiceImpl implements VacinationHistoryService {
             //TODO : exception handler
         }
 
-        return new EntityCustomResponse(1, "Add Pet Success", 200, vacinationHistoryDb);
+        return new EntityCustomResponse(1, "Add Vaccination History Success", 200, vacinationHistoryDb);
     }
 
     @Override

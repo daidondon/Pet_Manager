@@ -2,7 +2,6 @@ package com.example.pet_manager.controller;
 
 import com.example.pet_manager.request.PetRecordRequest;
 import com.example.pet_manager.service.PetRecordService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +13,12 @@ public class PetRecordController {
     private PetRecordService petRecordService;
 
     @GetMapping("/list")
-    public ResponseEntity<?> listPetRecord() {
-        return ResponseEntity.ok(petRecordService.getAll());
+    public ResponseEntity<?> listPetRecord(@RequestParam("pet-id") Integer petId) {
+        return ResponseEntity.ok(petRecordService.getAll(petId));
     }
 
+    @PostMapping("/add")
+    public ResponseEntity<?> addPetRecord(@RequestBody PetRecordRequest petRecordRequest) {
+        return ResponseEntity.ok(petRecordService.addPetRecord(petRecordRequest));
+    }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 @ToString
 @Entity
 @Data
-@Table(name = "user")
+@Table(name = "user_pet")
 public class User {
 
     @Id
@@ -33,7 +33,13 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "status")
+    private int status;
+
     @OneToOne(mappedBy = "user")
     private Doctor doctor;
+
+    @OneToOne(mappedBy = "user")
+    private Customer customer;
 
 }
