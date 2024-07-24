@@ -31,4 +31,20 @@ public class AccountController {
 
 
     }
+    @GetMapping("ban-account")
+    public ResponseEntity<String> BanAccount(@RequestParam String email) {
+        try {
+            User u = userService.findUserByGmail(email);
+            u.setStatus(0);
+            userService.updateUser(u);
+            return new ResponseEntity<>("Ban success", HttpStatus.OK);
+
+
+
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error from server", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+    }
 }
