@@ -143,10 +143,10 @@ public class UserServiceImpl implements UserService {
 
             for (User user : list) {
                 AccountResponseForAdmin item = new AccountResponseForAdmin();
-                item.setId(user.getId());
-                item.setAddress(item.getAddress());
-                item.setFull_name(item.getFull_name());
-                item.setPhone_number(item.getPhone_number());
+                item.setGmail(user.getGmail());
+                item.setAddress(user.getAddress());
+                item.setFull_name(user.getFull_name());
+                item.setPhone_number(user.getPhone_number());
                 item.setRoles(findRolesByUsername(user.getGmail()));
                 item.setStatus(user.getStatus());
                 accounts.add(item);

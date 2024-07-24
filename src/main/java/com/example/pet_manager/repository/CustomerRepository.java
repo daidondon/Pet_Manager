@@ -14,7 +14,7 @@ import javax.transaction.Transactional;
 public interface CustomerRepository extends JpaRepository<Customer,Integer> {
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO customer (user_id, role_id) VALUES (:userId, 1)", nativeQuery = true)
+    @Query(value = "INSERT INTO customer (user_id, role_id) VALUES (:userId, 3)", nativeQuery = true)
     void addCustomer(@Param("userId") int userId);
 
 
