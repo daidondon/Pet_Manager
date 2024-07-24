@@ -36,6 +36,5 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(new EntityCustomResponse(0, apiException.getMessage(), apiException.getStatus().value(), null));
     }
 
-
 }
 
