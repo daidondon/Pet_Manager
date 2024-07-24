@@ -1,6 +1,6 @@
 package com.example.pet_manager.controller;
 
-import com.example.pet_manager.config.JWTConfig;
+//import com.example.pet_manager.config.JWTConfig;
 import com.example.pet_manager.dto.LoginRequestDTO;
 import com.example.pet_manager.dto.LoginResponseDTO;
 import com.example.pet_manager.dto.ProfileDTO;
@@ -36,8 +36,8 @@ import java.util.Set;
 @RestController
 public class AuthController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+//    @Autowired
+//    private AuthenticationManager authenticationManager;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -55,8 +55,8 @@ public class AuthController {
 //
         this.userService = userService;
     }
-    @Autowired
-    private JWTConfig jwtConfig;
+//    @Autowired
+//    private JWTConfig jwtConfig;
 
     private HttpServletRequest getCurrentHttpRequest() {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -75,9 +75,9 @@ public class AuthController {
         }
 
         String jwt = authorizationHeader.substring(7);
-        String email = jwtConfig.extractEmail(jwt);
+        //String email = jwtConfig.extractEmail(jwt);
 
-        ProfileDTO user = userService.getUserByEmail(email);
+        ProfileDTO user = userService.getUserByEmail(null);
         if (user == null) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
@@ -147,7 +147,8 @@ public class AuthController {
             }
 
             String jwt = authorizationHeader.substring(7);
-            String email = jwtConfig.extractEmail(jwt);
+            //String email = jwtConfig.extractEmail(jwt);
+            String email = "";
             Boolean check = userService.updateProfile(profileRequest,email);
             if (!check) {
                 return new ResponseEntity<>("Update fail", HttpStatus.BAD_REQUEST);
@@ -201,7 +202,8 @@ public class AuthController {
     public ResponseEntity<?> loginUser(@RequestBody LoginRequestDTO loginRequestDTO, HttpServletResponse response) {
 
         User user = userService.loginUser(loginRequestDTO.getGmail(), loginRequestDTO.getPassword());
-        String token = JWTConfig.generateToken(response, user.getGmail());
+        //String token = JWTConfig.generateToken(response, user.getGmail());
+        String token = "JWTConfig.generateToken(response, user.getGmail())";
         Set<String> role = userService.findRolesByUsername(user.getGmail());
         return ResponseEntity.ok(new LoginResponseDTO(token, user.getFull_name(), role));
     }

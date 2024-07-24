@@ -46,7 +46,9 @@ public class HostServiceImpl implements HostService {
         }
 
         Doctor doctor = new Doctor();
-        doctor.setRoleId(userRequest.getDoctorRequest().getRoleId());
+        Role role = new Role();
+        role.setId(userRequest.getDoctorRequest().getRoleId());
+        doctor.setRole(role);
         doctor.setClinicId(userRequest.getDoctorRequest().getClinicId());
         doctor.setLinkMeet(userRequest.getDoctorRequest().getLinkMeet());
         doctor.setUser(userDb);

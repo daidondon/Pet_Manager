@@ -1,7 +1,5 @@
 package com.example.pet_manager.entity;
 
-import javax.management.relation.Role;
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,8 +21,6 @@ public class Doctor {
     @Column(name = "link_meet")
     private String linkMeet;
 
-    @Column(name = "role_id")
-    private int roleId;
 
     @Column(name = "clinic_id")
     private int clinicId;
