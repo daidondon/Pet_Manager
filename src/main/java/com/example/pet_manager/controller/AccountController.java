@@ -47,4 +47,20 @@ public class AccountController {
 
 
     }
+    @GetMapping("active-account")
+    public ResponseEntity<String> ActiveAccount(@RequestParam String email) {
+        try {
+            User u = userService.findUserByGmail(email);
+            u.setStatus(1);
+            userService.updateUser(u);
+            return new ResponseEntity<>("Active success", HttpStatus.OK);
+
+
+
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error from server", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+    }
 }
