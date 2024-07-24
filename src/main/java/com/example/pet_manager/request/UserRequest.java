@@ -1,15 +1,11 @@
 package com.example.pet_manager.request;
 
-import com.example.pet_manager.entity.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor

@@ -1,7 +1,7 @@
 package com.example.pet_manager.entity;
 
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import lombok.*;
 

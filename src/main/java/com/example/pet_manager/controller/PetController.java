@@ -2,7 +2,7 @@ package com.example.pet_manager.controller;
 
 import com.example.pet_manager.request.PetRequest;
 import com.example.pet_manager.service.PetService;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

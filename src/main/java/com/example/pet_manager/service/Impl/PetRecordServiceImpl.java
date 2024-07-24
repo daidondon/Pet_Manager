@@ -40,7 +40,7 @@ public class PetRecordServiceImpl implements PetRecordService {
             petRecord.getDoctor();
             DoctorDto doctorDto=modelMapper.map(doctor, DoctorDto.class);
             doctorDto.setUser(null);
-            doctorDto.setUserName(petRecord.getDoctor().getUser().getFullName());
+            doctorDto.setUserName(petRecord.getDoctor().getUser().getFull_name());
             petRecordDto.setDoctorDto(doctorDto);
             return petRecordDto;
         }).collect(Collectors.toList());

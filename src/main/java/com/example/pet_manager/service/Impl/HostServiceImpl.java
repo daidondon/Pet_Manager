@@ -33,11 +33,11 @@ public class HostServiceImpl implements HostService {
     @Override
     public EntityCustomResponse addDoctorUser(UserRequest userRequest) {
         User user = new User();
-        user.setFullName(userRequest.getFullName());
+        user.setFull_name(userRequest.getFullName());
         user.setGmail(userRequest.getFullName());
         user.setPassword(userRequest.getPassword());
         user.setAddress(userRequest.getAddress());
-        user.setPhoneNumber(userRequest.getPhoneNumber());
+        user.setPhone_number(userRequest.getPhoneNumber());
         user.setStatus(userRequest.getStatus());
 
         User userDb =userRepository.save(user);

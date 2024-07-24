@@ -1,7 +1,8 @@
 package com.example.pet_manager.entity;
 
 import javax.management.relation.Role;
-import javax.persistence.*;
+
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;

@@ -1,5 +1,6 @@
 package com.example.pet_manager.entity;
 
+
 import jakarta.persistence.*;
 import lombok.*;
 

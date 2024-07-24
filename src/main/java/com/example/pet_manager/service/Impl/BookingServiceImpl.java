@@ -41,9 +41,9 @@ public class BookingServiceImpl implements BookingService {
             booking.getCustomer();
             CustomerDto customerDto=modelMapper.map(customer, CustomerDto.class);
             customerDto.setUser(null);
-            customerDto.setCustomerName(booking.getCustomer().getUser().getFullName());
+            customerDto.setCustomerName(booking.getCustomer().getUser().getFull_name());
             customerDto.setCustomerGmail(booking.getCustomer().getUser().getGmail());
-            customerDto.setCustomerPhone(booking.getCustomer().getUser().getPhoneNumber());
+            customerDto.setCustomerPhone(booking.getCustomer().getUser().getPhone_number());
             bookingDto.setCustomerDto(customerDto);
             return bookingDto;
         }).collect(Collectors.toList());
