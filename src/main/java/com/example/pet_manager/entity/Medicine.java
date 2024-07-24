@@ -1,6 +1,8 @@
 package com.example.pet_manager.entity;
 
-import jakarta.persistence.*;
+
+import javax.persistence.*;
+
 import lombok.*;
 
 import java.util.List;

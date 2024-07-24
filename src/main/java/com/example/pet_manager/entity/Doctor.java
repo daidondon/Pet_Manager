@@ -1,6 +1,7 @@
 package com.example.pet_manager.entity;
 
-import jakarta.persistence.*;
+import javax.management.relation.Role;
+import javax.persistence.*;
 import lombok.*;
 
 import java.util.List;
@@ -36,4 +37,7 @@ public class Doctor {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
 }

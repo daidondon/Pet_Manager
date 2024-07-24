@@ -26,6 +26,9 @@ public class HostServiceImpl implements HostService {
     @Autowired
     private DoctorRepository doctorRepository;
 
+    @Autowired
+    HostRepository hostRepository;
+
     @Transactional
     @Override
     public EntityCustomResponse addDoctorUser(UserRequest userRequest) {
@@ -53,5 +56,15 @@ public class HostServiceImpl implements HostService {
         }
 
         return new EntityCustomResponse(1, "Add Doctor account Success", 200, userDb);
+    }
+
+    @Override
+    public Host addHost(Host host) {
+        try{
+            return  hostRepository.save(host);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }
