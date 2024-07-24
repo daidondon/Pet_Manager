@@ -21,6 +21,6 @@ public interface UserService extends UserDetailsService {
     Boolean updateProfile(ProfileRequest request,String email);
     User findUserByGmail(String gmail);
     void updateUser(User user);
-
+    User addNewUser(User user);
     List<AccountResponseForAdmin> listAllAcountForAdmin();
 }

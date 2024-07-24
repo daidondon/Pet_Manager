@@ -47,7 +47,6 @@ public class User {
     @Size(max = 10)
     private String phone_number;
 
-    @NotBlank
     @Size(max = 10)
     private String verify;
 

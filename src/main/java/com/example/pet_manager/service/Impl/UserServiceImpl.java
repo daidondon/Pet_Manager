@@ -72,6 +72,15 @@ public class UserServiceImpl implements UserService {
         }
         return 0;
     }
+    @Override
+    public User addNewUser(User user) {
+        try{
+            return userRepository.save(user);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
     @Override
     public Boolean isExistEmail(String email) {
