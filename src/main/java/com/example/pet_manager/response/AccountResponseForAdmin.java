@@ -18,7 +18,6 @@ import java.util.Set;
 @AllArgsConstructor
 public class AccountResponseForAdmin {
 
-    private Integer id;
 
 
     private String gmail;

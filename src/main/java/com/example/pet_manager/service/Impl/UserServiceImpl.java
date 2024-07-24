@@ -72,6 +72,15 @@ public class UserServiceImpl implements UserService {
         }
         return 0;
     }
+    @Override
+    public User addNewUser(User user) {
+        try{
+            return userRepository.save(user);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
     @Override
     public Boolean isExistEmail(String email) {
@@ -143,10 +152,10 @@ public class UserServiceImpl implements UserService {
 
             for (User user : list) {
                 AccountResponseForAdmin item = new AccountResponseForAdmin();
-                item.setId(user.getId());
-                item.setAddress(item.getAddress());
-                item.setFull_name(item.getFull_name());
-                item.setPhone_number(item.getPhone_number());
+                item.setGmail(user.getGmail());
+                item.setAddress(user.getAddress());
+                item.setFull_name(user.getFull_name());
+                item.setPhone_number(user.getPhone_number());
                 item.setRoles(findRolesByUsername(user.getGmail()));
                 item.setStatus(user.getStatus());
                 accounts.add(item);

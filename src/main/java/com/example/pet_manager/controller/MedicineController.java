@@ -3,10 +3,11 @@ package com.example.pet_manager.controller;
 import com.example.pet_manager.request.MedicineRequest;
 import com.example.pet_manager.request.PetRequest;
 import com.example.pet_manager.service.MedicineService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/medicine")

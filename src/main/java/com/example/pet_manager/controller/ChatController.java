@@ -21,13 +21,11 @@ public class ChatController {
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
     public ChatMessageDTO sendMessage(Message chatMessage) {
-        String senderName = "Phong HD"; // Lấy tên của người gửi từ Principal
+        String senderName = "Phong HD";
         chatMessage.setSenderId(9L);
 
-        // Lưu tin nhắn vào cơ sở dữ liệu
         Message savedMessage = chatMessageService.saveMessage(chatMessage);
 
-        // Chuyển đổi và trả về DTO
         return new ChatMessageDTO(savedMessage.getId(), savedMessage.getSenderId(), senderName,
                 savedMessage.getReceiverId(), "Lam", savedMessage.getContent(),
                 savedMessage.getTimestamp(), savedMessage.getMessageType());

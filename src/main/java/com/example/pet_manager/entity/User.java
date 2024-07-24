@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "[User]",
+@Table(name = "[user_pet]",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "gmail")
         })
@@ -47,7 +47,6 @@ public class User {
     @Size(max = 10)
     private String phone_number;
 
-    @NotBlank
     @Size(max = 10)
     private String verify;
 
